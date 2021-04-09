@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background: #ffffff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+    font-size: 40px;
+	font-weight: bold;
+	margin-bottom: 1.5em;
+}
+
+h2 {
+    font-size: 30px;
+	text-align: center;
+}
+
+p {
+	font-size: 16px;
+	font-weight: 100;
+	line-height: 20px;
+	letter-spacing: 0.5px;
+	margin: 20px 0 30px;
+}
+
+form>div>p {
+    display: flex;
+    color: #b9341d;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0;
+}
+
+button {
+	border-radius: 20px;
+	border: 1px solid #FF4B2B;
+	background-color: #FF4B2B;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+    text-transform: uppercase;
+    transition:background-color .15s ease-in;
+}
+
+button:active {
+	transform: scale(0.95);
+}
+
+button:focus {
+	outline: none;
+}
+
+button:hover {
+    background-color: white;
+    color: #FF4B2B;
+}
+
+.button {
+	background-color: transparent;
+    border-color: #FFFFFF;
+    color: #FFFFFF;
+}
+
+.button:hover {
+    background-color: white;
+    color: #FF4B2B;
+}
+
+form {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 0 50px;
+	height: 100%;
+    text-align: center;
+}
+
+form>div>button{
+    margin-top: 2em;
+}
+
+input {
+	background-color: #eee;
+	border-radius: 5px;
+	border: none;
+	padding: 12px 15px;
+	margin: 10px 0;
+	width: 100%;
+}
+
+.form-container {
+	position: absolute;
+	top: 0;
+	height: 100%;
+    left: 0;
+    width: 50%;
+}
+
+.right-panel-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #FF416C;
+	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
+	background: linear-gradient(to right, #FF4B2B, #FF416C);
+	color: #FFFFFF;
+    position: absolute;
+	top: 0;
+	left: 50%;
+	width: 50%;
+    height: 100%;
+    align-items: center;
+	justify-content: center;
+	flex-direction: column;
+    text-align: center;
+    
+}
+
+.right-panel-signup {
+	padding: 2em;
+}
+.right-panel-signup>h1 {
+	margin: 0;
+}
+
+.right-panel-guest {
+	padding: 2em;
+}
+.right-panel-guest>h1 {
+	margin: 0;
+}

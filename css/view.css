@@ -1,0 +1,19 @@
+/*view page*/
+.video-container{
+    display: flex;
+    justify-content: center;
+    width:100%;    
+}
+video{
+        max-width: 850px;
+        outline: none;
+}
+
+.video-content{
+   margin-left:100px;
+}
+
+
+.fa-thumbs-down, .fa-thumbs-o-down{
+    transform: rotateY(180deg);
+}

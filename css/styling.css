@@ -210,17 +210,3 @@ margin of 4em from the top(relative to class top)
 }
 
 
-/*view page*/
-.video-container{
-    display: flex;
-    justify-content: center;
-    width:100%;    
-}
-video{
-        max-width: 850px;
-        outline: none;
-}
-
-.video-content{
-   margin-left:100px;
-}

@@ -66,13 +66,16 @@
 											<li>Settings</li>
 										<ul>
 									</div>
-
 									<div class="profile-menu-right">
 										<ul>
 											<li><i class="fas fa-sign-out-alt"></i></li>
-											<li><a href="logout.php">Logout</a></li>
+											
+											<li><a style=" padding:0" href="logout.php" >Logout</a></li>
 										<ul>
 									</div>
+
+									
+				
 								</div>		
 							</li>
 						</ul>

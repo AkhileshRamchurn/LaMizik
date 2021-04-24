@@ -13,11 +13,13 @@ video{
    margin-left:100px;
 }
 
+.video-rating{
+    margin-left:100px;
+    cursor: pointer;
+   
+}
 
 .fa-thumbs-down, .fa-thumbs-o-down{
     transform: rotateY(180deg);
 }
 
-.video-rating{
-    margin-left:100px;
-}

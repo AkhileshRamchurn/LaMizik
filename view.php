@@ -152,6 +152,8 @@
 		}
 		
 	}
+
+	
 ?>
 
 
@@ -160,8 +162,8 @@
 <head>
 	<title>view</title>
 
-	<link rel="stylesheet" href="css/styling.css">
-	<link rel="stylesheet" href="css/view.css">
+	<link rel="stylesheet" href="css/styling.css" type="text/css">
+	<link rel="stylesheet" href="css/view.css" type="text/css">
 	<script src="https://kit.fontawesome.com/260e4ed8bc.js" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<!-- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> -->
@@ -260,7 +262,7 @@
 		</div>
 
 		<!-- LIKE AND DISLIKE BUTTON -->
-		<div class= "video-rating">
+		<div class= "video-rating" >
 
 			<!-- if user likes post, style button differently -->
 			<i <?php if(userLiked($video_id, $user_id)): ?>

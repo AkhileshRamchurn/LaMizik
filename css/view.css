@@ -17,3 +17,7 @@ video{
 .fa-thumbs-down, .fa-thumbs-o-down{
     transform: rotateY(180deg);
 }
+
+.video-rating{
+    margin-left:100px;
+}

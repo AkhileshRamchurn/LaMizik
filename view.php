@@ -73,38 +73,6 @@
 
 		}
 
-		//Get total number of likes and dislikes for a particular video
-
-		// function getRating($id){
-		// 	include 'dbconnect.php';
-		// 	console.log("Working here");
-
-		// 	$rating = array();
-
-		// 	$likes_query = "SELECT COUNT(*) FROM rating WHERE Video_ID = $id AND Rate_Action='like'";
-		// 	$dislikes_query = "SELECT COUNT(*) FROM rating WHERE Video_ID = $id AND Rate_Action='dislike'";
-
-		// 	$likes_rs = $conn -> prepare($likes_query); 
-		// 	$dislike_rs = $conn -> prepare($dislikes_query); 
-
-		// 	$likes_rs ->execute();
-		// 	$dislikes_rs ->execute();
-
-		// 	$likes = $likes_rs->fetch();
-		// 	$dislikes = $dislikes_rs->fetch();
-
-		// 	$rating = [
-		// 		'likes' => $likes,
-		// 		'dislikes' => $dislikes
-		// 	];
-
-			
-
-		// 	return json_encode($rating);
-			
-			
-		// }
-
 		//request from ajax
 		//if user clicks like or dislike button
 		if(isset($_POST['action'])){
@@ -114,41 +82,52 @@
 			$video_id = $_POST['video_id'];
 			$action = $_POST['action'];
 
-			//echo $action;
+			try{
+				$conn -> beginTransaction();
 
-			switch($action){
-				case 'like':
-					$sql = "INSERT INTO rating (User_ID, Video_ID, Rate_Action)
-							VALUES($user_id, $video_id, 'like');
-							 ON DUPLICATE KEY UPDATE Rating_Action ='like'";
-					break;
-				
-				case 'dislike':
-					$sql = "INSERT INTO rating (User_ID, Video_ID, Rate_Action)
-						VALUES($user_id, $video_id, 'dislike')
-						--  ON DUPLICATE KEY UPDATE Rating_Action ='dislike'";
-					break;
-				case 'unlike':
-					$sql ="DELETE FROM rating WHERE User_ID=$user_id AND Video_ID = $video_id";					
-					break;
-				case 'undislike':
-					$sql ="DELETE FROM rating WHERE User_ID=$user_id AND Video_ID = $video_id";					
-					break;	
-				default:
-					break;	
+				switch($action){
+					case 'like':
+						$sql = "INSERT INTO rating (User_ID, Video_ID, Rate_Action)
+								VALUES($user_id, $video_id, 'like')
+								ON DUPLICATE KEY UPDATE Rate_Action ='like'";
+							
+						break;
+					
+					case 'dislike':
+						$sql = "INSERT INTO rating (User_ID, Video_ID, Rate_Action)
+							VALUES($user_id, $video_id, 'dislike')
+							ON DUPLICATE KEY UPDATE Rate_Action ='dislike'";
+						
+						break;
+					case 'unlike':
+						$sql ="DELETE FROM rating WHERE User_ID=$user_id AND Video_ID = $video_id";					
+						break;
+					case 'undislike':
+						$sql ="DELETE FROM rating WHERE User_ID=$user_id AND Video_ID = $video_id";					
+						break;	
+					default:
+						break;	
+	
+				}
+	
+				//execute query to effect changes in the database
+				 $stmt = $conn -> prepare($sql); 
+				 $stmt ->execute();
 
+				 $conn -> commit();
+
+			}catch(PDOException $exception){
+				$conn->rollBack();
+				echo 'ERROR: '.$exception->getMessage();
 			}
-
-			//execute query to effect changes in the database
-			 $stmt = $conn -> prepare($sql); 
-			 $stmt ->execute();
-
 			
+			
+			 //Get total number of likes and dislikes for a particular video
 			/*Calculate likes and dislke....Then return back in JSON format */
 			 $rating = array();
 
-			 $likes_query = "SELECT COUNT(*) FROM rating WHERE Video_ID = $user_id AND Rate_Action='like'";
-			 $dislikes_query = "SELECT COUNT(*) FROM rating WHERE Video_ID = $user_id  AND Rate_Action='dislike'";
+			 $likes_query = "SELECT COUNT(*) FROM rating WHERE Video_ID = $video_id AND Rate_Action='like'";
+			 $dislikes_query = "SELECT COUNT(*) FROM rating WHERE Video_ID = $video_id AND Rate_Action='dislike'";
 
 			 $likes_rs = $conn -> prepare($likes_query); 
 			 $dislikes_rs = $conn -> prepare($dislikes_query); 
@@ -165,23 +144,14 @@
 			];
 
 			
+		
 
 			echo json_encode($rating);
-
-			//echo "fuck you";
-
 			exit(0);
 
 		}
-
-		
-
 		
 	}
-
-	
-	
-
 ?>
 
 
@@ -277,18 +247,19 @@
 				$row =$stmt -> fetch();
 
 			?>	
-	
+			<!-- DISPLAY VIDEO -->
 			<video controls autoplay>
 				<source src="<?php echo 'video/'.$video_id.'.mp4'; ?>" >	
 			</video>
 
 	
 		</div>	
-
+		<!-- VIDEO NAME -->
 		<div class="video-content">
 			<h3><?php echo $row['Title'] ?></h3>	
 		</div>
 
+		<!-- LIKE AND DISLIKE BUTTON -->
 		<div class= "video-rating">
 
 			<!-- if user likes post, style button differently -->
@@ -312,18 +283,12 @@
 				<?php endif ?>	
 				data-id="<?php echo $video_id ?>"></i>
 
-			<span class="likes"><?php echo getDisLikes($video_id); ?> </span>
+			<span class="dislikes"><?php echo getDisLikes($video_id); ?> </span>
 		</div>
 
-		
-			
-		
 	</div>
-	
 
-
-
-	<script src="css/scripts/view.js"></script>
+	<script src="scripts/view.js"></script>
 	<!-- script for profile dropdown menu -->
 	
 	<script type="text/javascript">

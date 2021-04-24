@@ -6,7 +6,7 @@ $(document).ready(function(){
         
     //if user clicks on the like button
     $('.like-btn').on('click',function(){
-        video_id = $(this).data('id'); //receives data from data-id (line 195)
+        video_id = $(this).data('id'); //receives data from data-id 
         $clicked_btn = $(this);
           
         //if user likes the video
@@ -20,37 +20,39 @@ $(document).ready(function(){
 
 
         //using ajax to make changes without reloading
-    $.ajax({
-        url: 'view.php',
-        type: 'post',
-       // async: true,
-        data: {
-            'action': action,
-            'video_id': video_id
-        },
+        $.ajax({
+            url: 'view.php',
+            type: 'post',
+        
+            data: {
+                'action': action,
+                'video_id': video_id
+            },
+            dataType:'JSON', 
 
-        //if the response is successful from server
-        success: function(data){
-         alert(data);
-           res = JSON.parse(data); 
+            //if the response is successful from server
+            success: function(data){
+            
+            res = JSON.parse(JSON.stringify(data)); 
+           
 
-           if(action == 'like'){
-               $clicked_btn.removeClass('fa-thumbs-o-up');
-               $clicked_btn.addClass('fa-thumbs-up');
-           }else if(action == "unlike"){
-               $clicked_btn.removeClass('fa-thumbs-up');
-               $clicked_btn.addClass('fa-thumbs-o-up');
-           }
+            if(action == 'like'){
+                $clicked_btn.removeClass('fa-thumbs-o-up');
+                $clicked_btn.addClass('fa-thumbs-up');
+            }else if(action == "unlike"){
+                $clicked_btn.removeClass('fa-thumbs-up');
+                $clicked_btn.addClass('fa-thumbs-o-up');
+            }
 
-         //display the number of likes and dislikes
-         
-           $clicked_btn.siblings('span.likes').text(res.likes);
-           $clicked_btn.siblings('span.dislikes').text(res.dislikes);
+            //display the number of likes and dislikes
+            
+            $clicked_btn.siblings('span.likes').text(res.likes);
+            $clicked_btn.siblings('span.dislikes').text(res.dislikes);
 
-           //change button styling of the other button if the user is reacting the second time to video
-           $clicked_btn.siblings('i.fa-thumbs-down').removeClass('fa-thumbs-down').addClass('fa-thumbs-o-down')
-        }
-       });
+            //change button styling of the other button if the user is reacting the second time to video
+            $clicked_btn.siblings('i.fa-thumbs-down').removeClass('fa-thumbs-down').addClass('fa-thumbs-o-down')
+            }
+        });
 
        
 
@@ -76,17 +78,18 @@ $(document).ready(function(){
      $.ajax({
         url: 'view.php',
         type: 'post',
-       // async: true,
+       
         data: {
             'action': action,
             'video_id': video_id
         },
+        dataType:'JSON', 
 
         //if the response is successful from server
         success: function(data){
-            alert(data)
-           res = JSON.parse(data); 
-
+            
+           res = JSON.parse(JSON.stringify(data)); 
+             
            if(action == 'dislike'){
                $clicked_btn.removeClass('fa-thumbs-o-down');
                $clicked_btn.addClass('fa-thumbs-down');

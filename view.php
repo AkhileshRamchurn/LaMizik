@@ -1,6 +1,9 @@
 <?php
 	session_start();
-	$user_id =$_SESSION["User_ID"];
+	$user_id = null;
+	if (isset($_SESSION["User_ID"])) {
+		$user_id = $_SESSION["User_ID"];
+	}
 	
 	if(isset($_SESSION["User_ID"])){
 		 
@@ -164,6 +167,7 @@
 
 	<link rel="stylesheet" href="css/styling.css" type="text/css">
 	<link rel="stylesheet" href="css/view.css" type="text/css">
+	<link rel="stylesheet" href="css/comment_style.css">
 	<script src="https://kit.fontawesome.com/260e4ed8bc.js" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<!-- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> -->
@@ -250,8 +254,14 @@
 
 			?>	
 			<!-- DISPLAY VIDEO -->
+			<!-- should only display video if it is approved, else video not found -->
+			<!-- should allow admin to remove the video -->
+			<!-- should allow users to report the video -->
+			<!-- should allow users to donate money to the uploader -- Could be added to view profile page too if we decide make one! -->
 			<video controls autoplay>
-				<source src="<?php echo 'video/'.$video_id.'.mp4'; ?>" >	
+				<source src="<?php echo 'video/'.$video_id.'.mp4'; ?>" >
+				<!-- Copy paste src() above to cater for all the supported extensions!!! Refer to upload.php for supported extensions -->
+				<!-- or use glob function -- easier!!? -->	
 			</video>
 
 	
@@ -289,6 +299,139 @@
 		</div>
 
 	</div>
+
+	<!-- Comment System -->
+	<!-- should only display comments if video is approved, else video not found -->
+	<!-- Should allow admin to remove comments -->
+	<!-- Ajax scripts could be reused -->
+
+	<div class = "whole-comment-container">
+		<div class="enter-comment-container">
+			<h1 class = "comment-heading">Comment</h1>
+			<div class="comment-sort">
+				<p>Sort By</p>
+				<select name="commentSort" id="comment_Sort">
+					<option value="first">Newest</option>
+					<option value="last">Oldest</option>
+				</select>
+			</div>
+			<div class = "comment-textbox">
+				<input type="text" id ="commentDesc" name="comment" placeholder="Write a comment" >
+			</div>
+			<div class = "comment-button">
+				<input type = "button" id = "submit" value = "Comment">
+			</div>
+		</div>
+		<div id="comment-container"></div>
+	</div>
+
+	<script type="text/javascript">		//script for inserting comments
+		$(document).ready(function() {
+			$('#submit').click(function(e) {
+				e.preventDefault();
+				var userId = <?php echo json_encode($userId); ?>;
+				if (userId == null) {
+					alert("Must be logged in to post comments you fool!!");	//to change later you fool!!!!
+				}
+				else if (comment.trim() != "") {
+					var videoId = <?php echo json_encode($video_id); ?>;
+					var comment = $('#commentDesc').val();
+					$.ajax({
+						url: "insert_comment.php",
+						type: "POST",
+						data: {
+							videoId: videoId,
+							userId: userId,
+							comment: comment,
+						},
+						cache:false,
+						success: function(response){
+							if (response == "unexpected_error") {
+								window.location = "home.php?error=unexpected_error";
+							}
+							else {
+								$("#comment-container").prepend(response);
+								$('#commentDesc').val("");
+							}
+						}
+					});
+				}
+				else {
+					alert('Empty comment you fool!!');	//hmmmmmmmmmmmm
+				}
+			});
+
+		});
+	</script>
+
+	<script type="text/javascript">	//script for fetching comments
+
+		var videoId = <?php echo json_encode($video_id); ?>;
+		var sortValue = $('#comment_Sort').val();
+
+		function fetchInitialComment() {
+			$.ajax({
+				url: "fetch_comment.php",
+				type: "POST",
+				data: {
+					limit: 15,
+					start: 0,
+					videoId: videoId,
+					sortValue: sortValue
+				},
+				cache:false,
+				success:function(data) {
+					$("#comment-container").html(data);
+				}
+			});
+		}
+
+		fetchInitialComment();
+		
+		$(document).ready(function() {
+			
+			var limit = 15;
+			var start = 15;
+			
+			var timeout;
+			$(window).scroll(function(){
+				clearTimeout(timeout);
+				timeout = setTimeout(function() {
+					if ($(window).scrollTop() >= $('#comment-container').offset().top + $('#comment-container').outerHeight() - window.innerHeight) {
+						load_comment();
+					}
+				}, 50);
+			});
+
+			function load_comment() {
+				$.ajax({
+					url: "fetch_comment.php",
+					type: "POST",
+					data: {
+						limit: limit,
+						start: start,
+						videoId: videoId,
+						sortValue: sortValue
+					},
+					cache:false,
+					success:function(data) {
+						if (data != '') {
+							$("#comment-container").append(data);
+							start += limit;
+						}
+					}
+				});
+			}
+
+			$('#comment_Sort').change(function() {
+				start = 15;
+				sortValue = $('#comment_Sort').val();
+				fetchInitialComment();
+			});
+		
+		});
+		
+	</script>
 
 	<script src="scripts/view.js"></script>
 	<!-- script for profile dropdown menu -->

@@ -329,13 +329,14 @@
 		$(document).ready(function() {
 			$('#submit').click(function(e) {
 				e.preventDefault();
-				var userId = <?php echo json_encode($userId); ?>;
+				var userId = <?php echo json_encode($user_id); ?>;
+				var comment = $('#commentDesc').val();
+				console.log(comment.trim());
 				if (userId == null) {
 					alert("Must be logged in to post comments you fool!!");	//to change later you fool!!!!
 				}
 				else if (comment.trim() != "") {
 					var videoId = <?php echo json_encode($video_id); ?>;
-					var comment = $('#commentDesc').val();
 					$.ajax({
 						url: "insert_comment.php",
 						type: "POST",

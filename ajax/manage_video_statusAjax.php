@@ -1,5 +1,12 @@
 <?php
-    if($_SERVER['REQUEST_METHOD'] == 'POST') {  // check if admin is accessing!!!!
+    session_start();
+
+    $userType=null;
+    if (isset($_SESSION['User_Type'])) {
+        $userType=$_SESSION['User_Type'];
+    }
+
+    if($userType=="Admin" && $_SERVER['REQUEST_METHOD'] == 'POST') {
 
         function test_input($data) {
             $data = trim($data);
@@ -12,10 +19,10 @@
         $action = test_input($_POST['action']);
 
         if (empty($videoId) || empty($action)) {
-            echo "unexpected_error";
+            header('HTTP/1.0 403 Forbidden');
         }
         else {
-            require_once 'dbconnect.php';
+            require_once '../dbconnect.php';
             if ($action == "approve"){
                 $sql = 'UPDATE video SET Status = "Approved" WHERE Video_ID = ?';
                 $stmt = $conn->prepare($sql);
@@ -42,6 +49,6 @@
         }
     }
     else {
-        header('Location: home.php?error=unexpected_error');    //Add this error handling to home page
+        header('HTTP/1.0 403 Forbidden');
     }
 ?>

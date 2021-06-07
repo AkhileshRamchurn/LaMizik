@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400, 800');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    padding-top: 10vh;
+}
+
+.main {
+    margin-left: 21vw;
+    display: grid;
+    place-items: center;
+}
+
+.list-controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-block: 1em 3em;
+}
+
+.comment-sort {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+}
+
+.comment-list-container {
+    width: 60%;
+    padding-block: 2.5em;
+}
+
+.form-control:focus {
+    border: 1px solid black !important;
+    box-shadow: 0 0 2px #000000 !important;
+}
+
+.comment-detail {
+    background-color: rgb(245, 245, 245);
+    margin: 3em 1em;
+    padding: 2em;
+    border-radius: 2em;
+    transition: opacity .15s;
+}
+
+.comment-detail h2{
+    font-size: 1.25em;
+    font-weight: 800;
+}
+
+.comment-detail h4{
+    font-size: 1em;
+}
+
+.report-h4 {
+    margin-top: 1.5em;
+}
+
+.comment-detail p {
+    margin-block: 1em 2em;
+    font-size: .85em;
+}
+
+.name {
+    font-weight: 800;
+}
+
+.btn-container {
+    display: flex;
+    gap: 1.5em;
+}
+
+.submitBtn {
+    min-width: 8em;
+    font-size: .65em;
+    border-radius: 1em;
+    padding: 1em;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: rgb(245, 245, 245);
+    background-color: #edb33d;
+    border: 2px solid #edb33d;
+    transition:background-color .15s ease-in;
+}
+
+.submitBtn:hover {
+    background-color: rgb(245, 245, 245);
+    color: #edb33d;
+}
+
+.submitBtn:active {
+	transform: scale(0.95);
+}

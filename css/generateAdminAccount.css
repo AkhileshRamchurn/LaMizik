@@ -1,0 +1,86 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    padding-top: 10vh;
+}
+
+.main {
+    margin-left: 21vw;
+    display: grid;
+    place-items: center;
+    min-height: 90vh;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.field {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    width: 100%;
+}
+
+.form-container h1 {
+    font-size: 2.5em;
+	font-weight: bold;
+	margin-bottom: 1.5em;
+    width: 80%;
+    text-align: center;
+}
+
+.text-field {
+	background-color: #eee;
+	border-radius: 5px;
+	border: none;
+	padding: 12px 15px;
+	margin: 0.75em 0;
+	width: 60%;
+}
+
+.btn-generate {
+    min-width: 8vw;
+    font-size: .65em;
+    border-radius: 1em;
+    padding: 1em;
+    margin-top: 1em;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: white;
+    background-color: #edb33d;
+    border: 2px solid #edb33d;
+    transition:background-color .15s ease-in;
+}
+
+.btn-generate:hover {
+    background-color: white;
+    color: #edb33d;
+}
+
+.btn-generate:active {
+	transform: scale(0.95);
+}
+
+.btn-copy {
+    font-size: 1em;
+    border-radius: 5px;
+    padding: 0.65em;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-copy:active {
+    transform: scale(0.95);
+}

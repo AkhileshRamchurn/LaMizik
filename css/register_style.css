@@ -1,0 +1,273 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    font-family: "Montserrat", sans-serif;
+}
+
+body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+    min-height: 100vh;
+}
+
+.left-panel-container {
+	height: 100vh;
+	width: 50vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+	place-items: center;
+	background-color: #fd582f;
+	background-image: url("../img/guitar-1245856_1920.jpg");
+    background-size: cover;
+    background-position: left;
+    background-blend-mode:hard-light;
+	color: #FFFFFF;
+}
+
+.left-panel-signin,
+.left-panel-guest {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	align-items: center;
+	max-width: 300px;
+}
+
+.main-title {
+    font-size: 40px;
+	font-weight: bold;
+}
+
+.title {
+    font-size: 22px;
+	font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.title-left {
+    font-size: 40px !important;
+	font-weight: bold;
+	margin: 0;
+}
+
+.subtitle {
+	font-size: 16px;
+	font-weight: 100;
+	line-height: 20px;
+	letter-spacing: 0.5px;
+	margin: 20px 0 30px;
+}
+
+.form-container {
+    text-align: center;
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.main-form {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    transition: transform 0.3s ease-in-out;
+    align-items: center;
+}
+
+.outer-form {
+    transition: transform 0.3s ease-in-out;
+}
+
+.label {
+    font-size: 16px;
+    max-width: 20vw;
+}
+
+.label-container {
+    display: flex;
+    margin-right: 50%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.msg-label {
+    margin-bottom: 1em;
+}
+
+.field input {
+	background-color: #eee;
+	border-radius: 5px;
+	border: none;
+	padding: 12px 15px;
+	margin-block: 10px 20px;
+	width: 50%;
+}
+
+.field input:focus {
+    box-shadow: 0px 0px 0px 1.5px black inset;
+}
+
+.invalid-field {
+    box-shadow: 0px 0px 0px 1.5px #db8b82 inset;
+}
+
+.page {
+    width: 40vw;
+    text-align: left;
+    transform: translateX(25%);
+}
+
+.error-msg {
+    color: #b9341d;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+button {
+	border-radius: 10px;
+    border: 1px solid #FF4B2B;
+	background-color: #FF4B2B;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 20px;
+    text-transform: uppercase;
+    transition:background-color .15s ease-in;
+    margin-top: 1em;
+}
+
+button:active {
+	transform: scale(0.95);
+}
+
+button:focus {
+	outline: none;
+}
+
+button:hover {
+    background-color: white;
+    color: #FF4B2B;
+}
+
+.left-panel-button {
+	background-color: transparent;
+    border: 1px solid white;
+    border-radius: 20px;
+    padding: 12px 45px;
+    margin: 0;
+}
+
+.next,
+.prev {
+    min-width: 25%;
+}
+
+.firstNext,
+.fullNext {
+    width: 50%;
+}
+
+.btn-submit {
+    margin-top: 1.5em;
+}
+
+.form-container .progress-bar{
+    display: flex;
+    margin: 40px 0;
+    user-select: none;
+}
+
+.form-container .progress-bar .step{
+    text-align: center;
+    width: 100%;
+    position: relative;
+}
+
+.form-container .progress-bar .step p{
+    font-weight: 500;
+    font-size: 18px;
+    color: #000;
+    margin-bottom: 8px;
+}
+
+.progress-bar .step .bullet{
+    height: 25px;
+    width: 25px;
+    border: 2px solid #000;
+    display: inline-block;
+    border-radius: 50%;
+    position: relative;
+    transition: 0.2s;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 25px;
+}
+
+.progress-bar .step .bullet.active{
+    border-color: #FF4B2B;
+    background: #FF4B2B;
+}
+
+.progress-bar .step .bullet span{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -2px);
+}
+
+.progress-bar .step .bullet.active span{
+    display: none;
+}
+
+.progress-bar .step .bullet:before,
+.progress-bar .step .bullet:after{
+    position: absolute;
+    content: '';
+    bottom: 10px;
+    right: -170px;
+    height: 3px;
+    width: 160px;
+    background: #262626;
+}
+
+.progress-bar .step .bullet.active:after{
+    background: #FF4B2B;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: animate 0.3s linear forwards;
+}
+
+@keyframes animate {
+    100%{
+        transform: scaleX(1);
+    }
+}
+
+.progress-bar .step:last-child .bullet:before,
+.progress-bar .step:last-child .bullet:after{
+    display: none;
+}
+    
+.progress-bar .step p.active{
+    color: #FF4B2B;
+    transition: 0.2s linear;
+}
+    
+.progress-bar .step .check{
+    position: absolute;
+    left: 50%;
+    top: 70%;
+    font-size: 15px;
+    transform: translate(-50%, calc(-50% + 1px));
+    display: none;
+}
+    
+.progress-bar .step .check.active{
+    display: block;
+    color: #fff;
+}
+  

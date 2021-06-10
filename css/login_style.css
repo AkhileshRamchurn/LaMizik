@@ -2,29 +2,29 @@
 
 * {
 	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 
 body {
 	background: #ffffff;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
 	font-family: 'Montserrat', sans-serif;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	place-items: center;
 }
 
-h1 {
+.title {
     font-size: 40px;
 	font-weight: bold;
 	margin-bottom: 1.5em;
 }
 
-h2 {
-    font-size: 30px;
-	text-align: center;
+.title-right {
+	margin: 0;
 }
 
-p {
+.subtitle {
 	font-size: 16px;
 	font-weight: 100;
 	line-height: 20px;
@@ -32,17 +32,17 @@ p {
 	margin: 20px 0 30px;
 }
 
-form>div>p {
+.error-msg {
     display: flex;
     color: #b9341d;
     font-size: 12px;
     font-weight: bold;
+	letter-spacing: 0.5px;
     margin: 0;
 }
 
 button {
 	border-radius: 20px;
-	border: 1px solid #FF4B2B;
 	background-color: #FF4B2B;
 	color: #FFFFFF;
 	font-size: 12px;
@@ -66,15 +66,14 @@ button:hover {
     color: #FF4B2B;
 }
 
-.button {
-	background-color: transparent;
-    border-color: #FFFFFF;
-    color: #FFFFFF;
+.log-in-btn {
+	border: 1px solid #FF4B2B;
+	margin-top: 2em;
 }
 
-.button:hover {
-    background-color: white;
-    color: #FF4B2B;
+.right-panel-button {
+	background-color: transparent;
+    border: 1px solid white;
 }
 
 form {
@@ -87,11 +86,7 @@ form {
     text-align: center;
 }
 
-form>div>button{
-    margin-top: 2em;
-}
-
-input {
+.user-input {
 	background-color: #eee;
 	border-radius: 5px;
 	border: none;
@@ -100,43 +95,33 @@ input {
 	width: 100%;
 }
 
+.invalid-field {
+	box-shadow: 0px 0px 0px 1.5px #db8b82 inset;
+}
+
 .form-container {
-	position: absolute;
-	top: 0;
-	height: 100%;
-    left: 0;
-    width: 50%;
+	height: 100vh;
 }
 
 .right-panel-container {
+	height: 100vh;
+	width: 50vw;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    background: #FF416C;
-	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-	background: linear-gradient(to right, #FF4B2B, #FF416C);
+	place-items: center;
+	background-color: #fd582f;
+	background-image: url("../img/guitar-3943201_1920.jpg");
+    background-size: cover;
+    background-position: left;
+    background-blend-mode:multiply;
 	color: #FFFFFF;
-    position: absolute;
-	top: 0;
-	left: 50%;
-	width: 50%;
-    height: 100%;
-    align-items: center;
-	justify-content: center;
-	flex-direction: column;
-    text-align: center;
-    
 }
 
-.right-panel-signup {
-	padding: 2em;
-}
-.right-panel-signup>h1 {
-	margin: 0;
-}
-
+.right-panel-signup,
 .right-panel-guest {
-	padding: 2em;
-}
-.right-panel-guest>h1 {
-	margin: 0;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	align-items: center;
+	max-width: 300px;
 }

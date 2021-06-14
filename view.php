@@ -5,7 +5,7 @@
 		$user_id = $_SESSION["User_ID"];
 	}
 	
-	if(isset($_SESSION["User_ID"])){
+	
 		 
 		
 		//checks if user already like the post
@@ -75,84 +75,82 @@
 			return $numOfLikes;
 
 		}
-
+		if(isset($_SESSION["User_ID"])){
 		//request from ajax
 		//if user clicks like or dislike button
-		if(isset($_POST['action'])){
-			//alert('receiving till here');
-			
-			include 'dbconnect.php';
-			$video_id = $_POST['video_id'];
-			$action = $_POST['action'];
+			if(isset($_POST['action'])){
+				//alert('receiving till here');
+				
+				include 'dbconnect.php';
+				$video_id = $_POST['video_id'];
+				$action = $_POST['action'];
 
-			try{
-				$conn -> beginTransaction();
+				try{
+					$conn -> beginTransaction();
 
-				switch($action){
-					case 'like':
-						$sql = "INSERT INTO rating (User_ID, Video_ID, Rate_Action)
-								VALUES($user_id, $video_id, 'like')
-								ON DUPLICATE KEY UPDATE Rate_Action ='like'";
-							
-						break;
-					
-					case 'dislike':
-						$sql = "INSERT INTO rating (User_ID, Video_ID, Rate_Action)
-							VALUES($user_id, $video_id, 'dislike')
-							ON DUPLICATE KEY UPDATE Rate_Action ='dislike'";
+					switch($action){
+						case 'like':
+							$sql = "INSERT INTO rating (User_ID, Video_ID, Rate_Action)
+									VALUES($user_id, $video_id, 'like')
+									ON DUPLICATE KEY UPDATE Rate_Action ='like'";
+								
+							break;
 						
-						break;
-					case 'unlike':
-						$sql ="DELETE FROM rating WHERE User_ID=$user_id AND Video_ID = $video_id";					
-						break;
-					case 'undislike':
-						$sql ="DELETE FROM rating WHERE User_ID=$user_id AND Video_ID = $video_id";					
-						break;	
-					default:
-						break;	
-	
-				}
-	
-				//execute query to effect changes in the database
-				 $stmt = $conn -> prepare($sql); 
-				 $stmt ->execute();
-
-				 $conn -> commit();
-
-			}catch(PDOException $exception){
-				$conn->rollBack();
-				echo 'ERROR: '.$exception->getMessage();
-			}
-			
-			
-			 //Get total number of likes and dislikes for a particular video
-			/*Calculate likes and dislke....Then return back in JSON format */
-			 $rating = array();
-
-			 $likes_query = "SELECT COUNT(*) FROM rating WHERE Video_ID = $video_id AND Rate_Action='like'";
-			 $dislikes_query = "SELECT COUNT(*) FROM rating WHERE Video_ID = $video_id AND Rate_Action='dislike'";
-
-			 $likes_rs = $conn -> prepare($likes_query); 
-			 $dislikes_rs = $conn -> prepare($dislikes_query); 
-
-			 $likes_rs ->execute();
-			 $dislikes_rs ->execute();
-
-			$likes = $likes_rs->fetchColumn();
-			$dislikes = $dislikes_rs->fetchColumn();
-
-			$rating = [
-		 	'likes' => $likes,
-			'dislikes' => $dislikes
-			];
-
-			
+						case 'dislike':
+							$sql = "INSERT INTO rating (User_ID, Video_ID, Rate_Action)
+								VALUES($user_id, $video_id, 'dislike')
+								ON DUPLICATE KEY UPDATE Rate_Action ='dislike'";
+							
+							break;
+						case 'unlike':
+							$sql ="DELETE FROM rating WHERE User_ID=$user_id AND Video_ID = $video_id";					
+							break;
+						case 'undislike':
+							$sql ="DELETE FROM rating WHERE User_ID=$user_id AND Video_ID = $video_id";					
+							break;	
+						default:
+							break;	
 		
+					}
+		
+					//execute query to effect changes in the database
+					$stmt = $conn -> prepare($sql); 
+					$stmt ->execute();
 
-			echo json_encode($rating);
-			exit(0);
+					$conn -> commit();
 
-		}
+				}catch(PDOException $exception){
+					$conn->rollBack();
+					echo 'ERROR: '.$exception->getMessage();
+				}
+				
+				
+				//Get total number of likes and dislikes for a particular video
+				/*Calculate likes and dislke....Then return back in JSON format */
+				$rating = array();
+
+				$likes_query = "SELECT COUNT(*) FROM rating WHERE Video_ID = $video_id AND Rate_Action='like'";
+				$dislikes_query = "SELECT COUNT(*) FROM rating WHERE Video_ID = $video_id AND Rate_Action='dislike'";
+
+				$likes_rs = $conn -> prepare($likes_query); 
+				$dislikes_rs = $conn -> prepare($dislikes_query); 
+
+				$likes_rs ->execute();
+				$dislikes_rs ->execute();
+
+				$likes = $likes_rs->fetchColumn();
+				$dislikes = $dislikes_rs->fetchColumn();
+
+				$rating = [
+				'likes' => $likes,
+				'dislikes' => $dislikes
+				];
+
+
+				echo json_encode($rating);
+				exit(0);
+
+			}
 		
 	}
 
@@ -174,7 +172,7 @@
 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.min.js" integrity="sha512-bztGAvCE/3+a1Oh0gUro7BHukf6v7zpzrAb3ReWAVrt+bVNNphcl2tDTKCBr5zk7iEDmQ2Bv401fX3jeVXGIcA==" crossorigin="anonymous"></script> -->
 </head>
 <body>
-
+	
 	<div class="top-container">
 		<div class ="top">
 			<header>
@@ -273,21 +271,26 @@
 
 		<!-- LIKE AND DISLIKE BUTTON -->
 		<div class= "video-rating" >
-
-			<!-- if user likes post, style button differently -->
-			<i <?php if(userLiked($video_id, $user_id)): ?>
+			<!-- To access session variable in view.js -->
+			<input type="hidden" value=<?php echo $user_id?> id="user_id">	
+			
+			<!-- Checks if user has registered in order to like/dislike -->
+			<?php if($user_id != null): ?>
+				<!-- if user likes post, style button differently -->
+				<i <?php if(userLiked($video_id, $user_id)): ?>
 				 class="fa fa-thumbs-up like-btn"
 
 				<?php else: ?>
 					class="fa fa-thumbs-o-up like-btn"
 				<?php endif ?>	
 				data-id="<?php echo $video_id ?>"></i>
-
-			<span class="likes"><?php echo getLikes($video_id); ?> </span>
+		
+				<span class="likes"><?php echo getLikes($video_id); ?> </span>
 			
-			&nbsp;&nbsp;&nbsp;&nbsp;			
-			<!-- if user dislikes post, style button differently -->
-			<i <?php if(userDisliked($video_id, $user_id)): ?>
+				&nbsp;&nbsp;&nbsp;&nbsp;			
+				
+				<!-- if user dislikes post, style button differently -->
+				<i <?php if(userDisliked($video_id, $user_id)): ?>
 				 class="fa fa-thumbs-down dislike-btn"
 
 				<?php else: ?>
@@ -295,8 +298,24 @@
 				<?php endif ?>	
 				data-id="<?php echo $video_id ?>"></i>
 
-			<span class="dislikes"><?php echo getDisLikes($video_id); ?> </span>
+				<span class="dislikes"><?php echo getDisLikes($video_id); ?> </span>
+			
+			<!-- else just display like/dislike  -->
+			<?php else: ?>
+				<i	class="fa fa-thumbs-o-up like-btn"></i>
+				<span class="likes"><?php echo getLikes($video_id); ?> </span>
+				
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				
+				<i	class="fa fa-thumbs-o-down dislike-btn"></i>
+				<span class="dislikes"><?php echo getDisLikes($video_id); ?> </span>
+			
+			<?php endif ?>	
+
+			
 		</div>
+
+		
 
 	</div>
 
@@ -325,6 +344,13 @@
 		<div id="comment-container"></div>
 	</div>
 
+
+	<!-- <div class= "popup-outer-panel"><h1>What the fuck</h1></div>
+			 -->
+	<!-- Popup Modal -->
+	
+
+	<!-- Sripts for comment -->
 	<script type="text/javascript">		//script for inserting comments
 		$(document).ready(function() {
 			$('#submit').click(function(e) {

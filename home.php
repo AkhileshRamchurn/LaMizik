@@ -51,7 +51,7 @@
 									<div class="profile-menu-left">
 										<ul>
 											<li><i class="fas fa-user"></i></li>
-											<li>Your Profile</li>			
+											<li><a style="padding:0;color:white" href="user_profile.php" >profile</a></li>		
 										<ul>	
 									</div>	
 									<div class="profile-menu-right">

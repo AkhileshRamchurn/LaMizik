@@ -1,0 +1,31 @@
+# Turn rewrite engine on
+#https://code.tutsplus.com/tutorials/using-htaccess-files-for-pretty-urls--net-6049
+
+
+Options +FollowSymlinks
+RewriteEngine on
+#RewriteCond %{SCRIPT_FILENAME} !-d
+#RewriteCond %{SCRIPT_FILENAME} !-f
+#Options -MultiViews
+
+# map neat URL to internal URL
+
+#user-------------------------------------------------------------------------------------------------
+RewriteRule ^user/list/$   api/RestController.php?resource=user&page_key=list [nc,qsa]
+RewriteRule ^user/list$   api/RestController.php?resource=user&page_key=list [nc,qsa]
+RewriteRule ^user/list/([0-9]+)/$   api/RestController.php?resource=user&page_key=list&user_id=$1 [nc,qsa]
+RewriteRule ^user/list/([0-9]+)$   api/RestController.php?resource=user&page_key=list&user_id=$1 [nc,qsa]
+
+RewriteRule ^user/listUserView/$   api/RestController.php?resource=user&page_key=listUserView [nc,qsa]
+RewriteRule ^user/listUserView$   api/RestController.php?resource=user&page_key=listUserView [nc,qsa]
+RewriteRule ^user/listUserView/([0-9]+)/$   api/RestController.php?resource=user&page_key=listUserView&user_id=$1 [nc,qsa]
+RewriteRule ^user/listUserView/([0-9]+)$   api/RestController.php?resource=user&page_key=listUserView&user_id=$1 [nc,qsa]
+
+RewriteRule ^user/create/$   api/RestController.php?resource=user&page_key=create [nc,qsa]
+RewriteRule ^user/create$   api/RestController.php?resource=user&page_key=create [nc,qsa]
+
+RewriteRule ^user/delete/([0-9]+)/$   api/RestController.php?resource=user&page_key=delete&user_id=$1 [nc,qsa]
+RewriteRule ^user/delete/([0-9]+)$   api/RestController.php?resource=user&page_key=delete&user_id=$1 [nc,qsa]
+
+RewriteRule ^user/update/([0-9]+)/$   api/RestController.php?resource=user&page_key=update&user_id=$1 [nc,qsa]
+RewriteRule ^user/update/([0-9]+)$   api/RestController.php?resource=user&page_key=update&user_id=$1 [nc,qsa]

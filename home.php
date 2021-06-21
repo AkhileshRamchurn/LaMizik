@@ -72,10 +72,7 @@
 											
 											<li><a style=" padding:0" href="logout.php" >Logout</a></li>
 										<ul>
-									</div>
-
-									
-				
+									</div>			
 								</div>		
 							</li>
 						</ul>
@@ -172,24 +169,40 @@
 
 		<div class="bottom">
 			<h1>Tutorial Videos</h1>
-			<div class="owl-carousel owl-theme" >
+			<div class="video-display" >
 				<?php
 
-					$query = "SELECT * FROM video where Video_Type ='lesson' AND Status = 'Approved' LIMIT 10";
+					$query = "SELECT * FROM video where Video_Type ='lesson' AND Status = 'Approved' LIMIT 4";
 					$stmt = $conn -> prepare($query);
 					$stmt -> execute();  
 
-					while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+				
+					$row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 				?>	
-						<div class="item" >
-				    		<a href="<?php echo 'view.php?video_id='.$row['Video_ID']; ?>" target="_self">
-				    			<img src="<?php echo 'video/thumbnail/'.$row['Video_ID'].'t.jpg' ?>">
-				    			<h3><?php echo $row['Title'] ?></h3>
-				    		</a>
-						</div>	
-				<?php		
-					}
-				?>	
+					<div class="img">
+						<a href="<?php echo 'view.php?video_id='.$row[0]['Video_ID']; ?>" target="_self">
+							<img src="<?php echo 'video/thumbnail/'.$row[0]['Video_ID'].'t.jpg' ?>">
+							<h3><?php echo $row[0]['Title'] ?></h3>
+						</a>
+					</div>	
+					<div class="img">
+						<a href="<?php echo 'view.php?video_id='.$row[1]['Video_ID']; ?>" target="_self">
+							<img src="<?php echo 'video/thumbnail/'.$row[1]['Video_ID'].'t.jpg' ?>">
+							<h3><?php echo $row[1]['Title'] ?></h3>
+						</a>
+					</div>
+					<div class="img">
+						<a href="<?php echo 'view.php?video_id='.$row[2]['Video_ID']; ?>" target="_self">
+							<img src="<?php echo 'video/thumbnail/'.$row[2]['Video_ID'].'t.jpg' ?>">
+							<h3><?php echo $row[2]['Title'] ?></h3>
+						</a>
+					</div>
+					<div class="img">
+						<a href="<?php echo 'view.php?video_id='.$row[3]['Video_ID']; ?>" target="_self">
+							<img src="<?php echo 'video/thumbnail/'.$row[3]['Video_ID'].'t.jpg' ?>">
+							<h3><?php echo $row[3]['Title'] ?></h3>
+						</a>
+					</div>
 			</div>		
 		</div>
 
@@ -259,10 +272,10 @@
 				            items:1
 				        },
 				        600:{
-				            items:3
+				            items:2
 				        },
 				        1000:{
-				            items:6
+				            items:4
 				        }
 				    }
 
@@ -280,9 +293,5 @@
 			this.classList.toggle("active");
 		})
 	</script>
-
-	
-		
-
 </body>
 </html>	

@@ -4,6 +4,17 @@
 	box-sizing: border-box;
 }
 
+.video-display{
+    position: relative;
+    height: 20px;
+    width:40px;
+}
+.img{
+    position: relative;
+    height: 20px;
+    width:40px;
+}
+
 body{
 	background:#f4f4f4;
 	margin: 0;
@@ -20,13 +31,17 @@ a{
 /* TOP of home page */
 .top-container{
     background:#F0F0F0; 
+    position: relative;
 
 }
 
 .top{
+    /* position:fixed; */
     padding: 1.5em; 
     margin: 0;
     max-width: 1400px;
+  
+  
 }
 
 header{
@@ -59,6 +74,7 @@ footer{
     align-items: center;
     transition: 0.8s;
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    
 }
 .search-container:hover input{
     width: 350px;
@@ -219,4 +235,7 @@ video{
 
 .video-content{
    margin-left:100px;
+}
+.middle-container{
+    position:relative;
 }

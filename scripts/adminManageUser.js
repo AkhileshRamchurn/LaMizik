@@ -90,7 +90,8 @@
             });
         }
 
-        $('#user_sort li').click(function() {
+        $('#user_sort li').click(function(e) {
+            e.preventDefault();
             start = limitInc;
             sortValue = $(this).attr('value');
             fetchInitialVideos();

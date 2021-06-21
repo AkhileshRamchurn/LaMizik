@@ -12,6 +12,7 @@
     <script src="scripts/generateAdminAccount.js"></script>
     <link rel="stylesheet" href="css/generateAdminAccount.css">
 </head>
+<?php include 'includes/navbar.php'; ?>
 <body>
     <?php include "includes/admin_sidebar.html"; ?>
     <div class="main">

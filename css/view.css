@@ -1,38 +1,439 @@
-/*view page*/
-.video-container{
-    display: flex;
-    justify-content: center;
-    width:100%;    
-}
-video{
-        max-width: 850px;
-        outline: none;
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+
+* {
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
-.video-content{
-   margin-left:100px;
+.main {
+    margin-top: 10vh;
+    padding: 2em 5em;
+    display: flex;
+    gap: 2em;
+}
+
+.left-container {
+    width: 70%;
+}
+
+video{
+    width: 100%;
+}
+
+.video-title h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-block: 0.5em;
+}
+
+.video-sub-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    vertical-align: middle;
+}
+
+.video-data p {
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.midot {
+    font-size: 22px;
+    margin-inline: 0.25em;
 }
 
 .video-rating{
-    margin-left:100px;
-    cursor: pointer;
-   
+    font-size: 22px;
+    display: flex;
+    gap: 1.5em;
+    align-items: center;
+}
+
+.like-wrapper,
+.dislike-wrapper {
+    min-width: 2em;
 }
 
 .fa-thumbs-down, .fa-thumbs-o-down{
     transform: rotateY(180deg);
 }
 
-
-/*Popup Modal*/
-.popup-outer-panel {
-    
-    /* position: absolute;
-    top:0;*/
-    width: 100px;
-    height: 100px; 
-    background-color: red;
-    /* opacity: 0.7; */
+.like-btn,
+.dislike-btn {
     cursor: pointer;
+}
 
+.admin-reject-video {
+    font-size: .4em;
+    border-radius: 1em;
+    padding: 1em;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: rgb(245, 245, 245);
+    background-color: #edb33d;
+    border: 2px solid #edb33d;
+    transition:background-color .15s ease-in;
+}
+
+.admin-reject-video:hover {
+    background-color: rgb(245, 245, 245);
+    color: #edb33d;
+}
+
+.admin-reject-video:active {
+	transform: scale(0.95);
+}
+
+.video-uploader h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-block: 0.5em;
+}
+
+.uploader {
+    font-weight: normal;
+}
+
+.full-description {
+    font-size: 14px;
+    border-style: solid;
+    border-image: linear-gradient(to left, rgb(240, 240, 240), black) 100% 1;
+    padding-block: 1em;
+}
+
+.full-description p {
+    margin-bottom: 0;
+}
+
+#comment-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 1em;
+}
+
+.main-comment {
+    border: 2px solid grey;
+    border-radius: 10px;
+    margin-block: 10px;
+    padding: 10px;
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.comment-header p {
+    margin-bottom: 0;
+}
+
+.dropdown-icon {
+    color: white;
+}
+
+.comment-textbox textarea {
+    background-color: #eee;
+	border-radius: 5px;
+	border: none;
+	padding: 12px 15px;
+	width: 100%;
+    font-size: 14px;
+}
+
+.comment-button button {
+    display: block;
+    margin-left: auto;
+    min-width: 120px;
+    font-size: .65em;
+    border-radius: 1em;
+    padding: 1em;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: rgb(245, 245, 245);
+    background-color: #edb33d;
+    border: 2px solid #edb33d;
+    transition:background-color .15s ease-in;
+}
+
+.comment-button button:hover {
+    background-color: rgb(245, 245, 245);
+    color: #edb33d;
+}
+
+.comment-button button:active {
+	transform: scale(0.95);
+}
+
+.comment-heading {
+    font-weight: 600;
+    margin-bottom: 0;
+    font-size: 2em;
+}
+
+.comment-container-head {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    margin-block: 2em 1em;
+}
+
+.username {
+    font-size: 16px;
+    font-weight: 600;
+    color: #022E;
+}
+
+.time {
+    font-size: 10px;
+    color: grey;
+    margin-right: 2em;
+}
+
+.midot2 {
+    margin-inline: 0.5em;
+}
+
+.comment-description {
+    font-size: 12px;
+}
+
+.comment-header button {
+    margin-left: auto;
+    font-size: 0.6em;
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: black;
+    border: 2px solid black;
+    transition:background-color .15s ease-in;
+}
+
+.comment-header button i {
+    color: rgb(245, 245, 245);
+}
+
+.comment-header button:hover {
+    background-color: rgb(245, 245, 245);
+}
+
+.comment-header button:hover i {
+    color: black;
+}
+
+.comment-header button:active {
+	transform: scale(0.95);
+}
+
+.right-container {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+ 
+.my-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    border-radius: 0.5em;
+    z-index: 10;
+    background-color: white;
+    opacity: 0;
+    transition: 200ms ease-in;
+    padding: 1em;
+    width: 25%;
+    pointer-events: none;
+}
+
+.my-modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.my-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    opacity: 0;
+    transition: 200ms ease-in;
+}
+
+.my-modal-overlay.active {
+    pointer-events: all;
+    opacity: 1;
+}
+
+.my-modal-title {
+    font-size: 22px;
+}
+
+.my-modal-subtitle {
+    font-size: 16px;
+    font-weight: normal;
+    margin-block: 1em 0.75em;
+}
+
+.my-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#reportReason {
+    background-color: #eee;
+    border-radius: 5px;
+    border: none;
+    padding: 12px 15px;
+    width: 100%;
+    height: 5em;
+}
+
+.my-modal button {
+    min-width: 8em;
+    font-size: .65em;
+    border-radius: 1em;
+    padding: 0.75em;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: rgb(245, 245, 245);
+    background-color: #edb33d;
+    border: 2px solid #edb33d;
+    margin-top: 1em;
+    margin-right: 1em;
+    transition:background-color .15s ease-in;
+}
+
+.my-modal button:hover {
+    background-color: rgb(245, 245, 245);
+    color: #edb33d;
+}
+
+.my-modal button:active {
+	transform: scale(0.95);
+}
+
+.my-modal2 {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    border-radius: 0.5em;
+    z-index: 10;
+    background-color: white;
+    opacity: 0;
+    transition: 200ms ease-in;
+    padding: 1em;
+    width: 25%;
+    pointer-events: none;
+}
+
+.my-modal2.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.my-modal-overlay2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    opacity: 0;
+    transition: 200ms ease-in;
+}
+
+.my-modal-overlay2.active {
+    pointer-events: all;
+    opacity: 1;
+}
+
+.my-modal-title2 {
+    font-size: 22px;
+}
+
+.my-modal-subtitle2 {
+    font-size: 16px;
+    font-weight: normal;
+    margin-block: 1em 0.75em;
+}
+
+.my-modal-header2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.my-modal2 button {
+    min-width: 8em;
+    font-size: .65em;
+    border-radius: 1em;
+    padding: 0.75em;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: rgb(245, 245, 245);
+    background-color: #edb33d;
+    border: 2px solid #edb33d;
+    margin-top: 1em;
+    margin-right: 1em;
+    transition:background-color .15s ease-in;
+}
+
+.my-modal2 button:hover {
+    background-color: rgb(245, 245, 245);
+    color: #edb33d;
+}
+
+.my-modal2 button:active {
+	transform: scale(0.95);
+}
+
+.close-btn i,
+.close-btn2 i {
+    cursor: pointer;
+}
+
+.mini-video img{
+    vertical-align: bottom;
+    width: 220px;
+}
+
+.mini-video {
+    display: flex;
+    gap: 1em;
+}
+
+.mini-video-details-container h6{
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 1em;
+}
+
+.mini-video-details-container p{
+    font-size: 13px;
+    margin-bottom: 0.25em;
+}
+
+.midot3 {
+    margin-inline: 0.5em;
 }

@@ -14,10 +14,10 @@
         $sortValue = test_input($_POST['sortValue']);
         
         if (empty($videoId) || (empty($start) && $start != 0) || empty($limit) || empty($sortValue)) {
-            //echo "unexpected_error";
+            header('HTTP/1.0 403 Forbidden');
         }
         else {
-            require 'dbconnect.php';
+            require '../dbconnect.php';
 
             if ($sortValue == "first") {
                 $sortValue = "DESC";
@@ -25,7 +25,7 @@
             else {
                 $sortValue = "";
             }
-            $sql = "SELECT Username, Comment_Description, Comment_Timestamp
+            $sql = "SELECT Comment_ID, comment.User_ID, Username, Comment_Description, UNIX_TIMESTAMP(Comment_Timestamp) AS Comment_Timestamp
                     FROM comment, user 
                     WHERE Video_ID = ? AND user.User_ID = comment.User_ID 
                     ORDER BY Comment_Timestamp $sortValue
@@ -37,26 +37,15 @@
             $result->bindParam(3, $limit,PDO::PARAM_INT);
             $result->execute();
 
-            if ($result->rowCount() > 0) {
-                $output = "";
-                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                    $output .= "<div class='main-comment'>
-                                    <div class='comment-header'>
-                                        <p class = 'username'>".$row['Username']."</p>
-                                        <p class = 'time'>".$row['Comment_Timestamp']."</p>
-                                    </div>
-                                    <div class='comment-description'>
-                                        <p>".$row['Comment_Description']."</p>
-                                    </div>
-                                </div>"
-                                ;
-                }
-                echo $output;
-            }
+            $comment_array = $result->fetchAll(PDO::FETCH_ASSOC);
+            $jsonData = json_encode($comment_array, JSON_NUMERIC_CHECK);
+   	
+            header('Content-Type: application/json'); 
+            echo $jsonData; 
         }
     }
     else {
-        header('Location: home.php?error=unexpected_error');    //Add this error handling to home page
+        header('HTTP/1.0 403 Forbidden');
     }
 
 ?>

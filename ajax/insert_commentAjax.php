@@ -10,17 +10,16 @@
             return $data;
         }
 
-        $username = $_SESSION["Username"];
         $videoId = test_input($_POST['videoId']);
         $userId = test_input($_POST['userId']);
         $comment = test_input($_POST['comment']);
         
 
         if (empty($videoId) || empty($userId) || empty($comment)) {
-            echo "unexpected_error";
+            header('HTTP/1.0 403 Forbidden');
         }
         else {
-            require 'dbconnect.php';
+            require '../dbconnect.php';
 
             $sql = "INSERT INTO comment(Comment_Description, User_ID, Video_ID) VALUES (?, ?, ?)";
             $stmt = $conn -> prepare($sql);
@@ -34,20 +33,11 @@
             $sql = "SELECT Comment_Timestamp FROM comment WHERE Comment_ID = $lastId";
             $timestamp = $conn->query($sql);
 
-            echo    "<div class='main-comment'>
-                        <div class='comment-header'>
-                            <p class = 'username'>".$username."</p>
-                            <p class = 'time'>Just now</p>
-                        </div>
-                        <div class='comment-description'>
-                            <p>".$comment."</p>
-                        </div>
-                    </div>"
-                ;
+            echo $lastId;
         }
     }
     else {
-        header("Location: home.php?error=unexpected_error");    //Add this error handling to home page
+        header('HTTP/1.0 403 Forbidden');
     }
 
 ?>

@@ -13,6 +13,7 @@
     <script src="scripts/adminManageVideo.js"></script>
     <link rel="stylesheet" href="css/adminManageVideo.css">
 </head>
+<?php include 'includes/navbar.php'; ?>
 <body>
     <?php include "includes/admin_sidebar.html"; ?>
     <div class="main">
@@ -45,7 +46,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="video-sort"></div>
+                <div class="video-sort">
                     <text>Sort By</text>
                     <div class="dropdown">
                         <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">Sort Value</button>

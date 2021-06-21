@@ -13,6 +13,7 @@
     <script src="scripts/adminManageUser.js"></script>
     <link rel="stylesheet" href="css/adminManageUser.css">
 </head>
+<?php include 'includes/navbar.php'; ?>
 <body>
     <?php include "includes/admin_sidebar.html"; ?>
     <div class="main">

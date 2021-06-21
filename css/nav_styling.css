@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    font-family :'Montserrat';
+	box-sizing: border-box;
+}
+
+.navbar * {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar{
+    top: 0;
+    left: 0;
+    z-index: 100;
+	position: fixed;
+	width: 100vw;
+    height: 10vh;
+	background-color: #080808;
+	display:flex;
+	align-items:center;
+	justify-content:space-between;
+	padding-inline: 32px;
+}
+
+.navlinks ul {
+    display: flex;
+    align-items: center;
+}
+
+.navlinks ul li{
+	font-size: 18px;
+    font-weight: 400;
+	list-style:none;
+	display: inline-block;
+	margin:0 35px;
+	position: relative;
+}
+
+.navlinks ul li a{
+	color:white;
+	text-decoration: none;
+}
+
+.navlinks ul li a:hover{
+	color:white;
+}
+
+.navlinks ul li a.active{
+	color: rgb(190, 141, 67);
+}
+
+.navlinks ul li a::after{
+	content:'';
+	height: 3px;
+	width: 0;
+	background: white;
+	position: absolute;
+	left: 0;
+	bottom: -2px;
+	transition: 0.3s;
+}
+
+.navlinks ul li a:hover::after{
+	width: 100%;
+}
+
+.navlinks ul li a.active::after{
+    background: rgb(190, 141, 67);
+	width: 100%;
+}
+
+.headingtitlename{
+	padding: 0 1em;
+	color:white;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+/* search bar */
+.search-icon {
+    font-size: 14px;
+}
+
+.search-container{
+    margin: 0 auto;
+    background: white;
+    height: 30px;
+    border-radius: 40px;
+    padding: 1em 1em;
+    display: flex;
+    align-items: center;
+    transition: 0.8s;
+}
+
+.search-container button {
+    border: none;
+    outline: none;
+    background: none;
+}
+
+.search-container:hover input,
+.search-container input:focus {
+    width: 350px;
+}
+
+/*hide input */
+.search-container input{
+    background: transparent;
+    border:none;
+    outline: none;
+    width: 0px;
+    font-weight: 500;
+    font-size: 16px;
+    transition: 0.8s;
+}
+
+/* end search bar */
+
+/*Profile dropdown*/
+.user-icon{
+    font-size: 1.5em;
+}
+
+.nav-icon-white {
+    color: white !important;
+}
+
+.navbar ul li.profile-dropdown{
+    color: white;
+    position: relative;
+}
+
+.navbar ul li.profile-dropdown i{
+    cursor: pointer;
+}
+
+.navbar .profile-dropdown .profile-menu{
+    position: absolute;
+    top: 8vh;  
+    right: -0.5em;
+    display:flex;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.25);
+    border-radius: 15px;
+    display: none;
+}
+
+.profile-menu ul li {
+    font-size: 16px;
+    margin-inline: 0.25em;
+}
+
+.navbar .profile-menu .profile-menu-right{
+    width:max-content;
+    padding:1em 0.5em;
+}
+
+.navbar .profile-menu .profile-menu-left{
+    background: #000;
+    width:max-content;
+    padding: 1em  0.5em;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+}
+
+
+.navbar .profile-menu .profile-menu-left li{
+    color: #fff;
+}
+
+.navbar .profile-menu li,
+.navbar .profile-menu li a {
+    color: #868686;
+}
+
+.navbar .profile-menu li a:hover{
+    color: #868686;
+}
+
+.navbar .profile-menu:before{
+    content: '';
+    position: absolute;
+    top: -18px;
+    right: 10px;
+    border:10px solid;
+    border-color: transparent transparent #fff transparent;
+}
+
+
+/*displays dropdown menu when class is set active  */
+.navbar ul li.profile-dropdown.active  .profile-menu{
+    display: flex;
+}
+
+/* end of navigation bar */
+
+

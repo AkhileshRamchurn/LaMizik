@@ -136,19 +136,22 @@
             });
         }
 
-        $("#video_type li").click(function() {
+        $("#video_type li").click(function(e) {
+            e.preventDefault();
             start = limitInc;
             videoType = $(this).attr('value');
             fetchInitialVideos();
         });
 
-        $('#video_status li').click(function() {
+        $('#video_status li').click(function(e) {
+            e.preventDefault();
             start = limitInc;
             videoStatus = $(this).attr('value');
             fetchInitialVideos();
         });
 
-        $('#video_sort li').click(function() {
+        $('#video_sort li').click(function(e) {
+            e.preventDefault();
             start = limitInc;
             sortValue = $(this).attr('value');
             fetchInitialVideos();

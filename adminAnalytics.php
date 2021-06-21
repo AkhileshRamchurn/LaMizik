@@ -11,6 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
+<?php include 'includes/navbar.php'; ?>
 <body>
 
     <?php include "includes/admin_sidebar.html"; ?>

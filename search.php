@@ -12,6 +12,7 @@
     <script src="scripts/search_page_script.js"></script>
     <link rel="stylesheet" href="css/search_video_style.css">
 </head>
+<?php include 'includes/navbar.php'; ?>
 <body>
     <div class="main">
         <div class="video-list-container">

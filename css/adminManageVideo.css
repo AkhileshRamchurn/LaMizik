@@ -28,8 +28,14 @@ body {
 }
 
 .video-list-container {
-    width: 60%;
+    width: 80%;
     padding-block: 2.5em;
+}
+
+.video-sort {
+    display: flex;
+    gap: 1em;
+    align-items: center;
 }
 
 .video-filter {

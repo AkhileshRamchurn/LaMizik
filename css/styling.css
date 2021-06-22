@@ -147,7 +147,7 @@ li a:hover{
 }
 .navbar ul li i.fas{
     width:35px;
-    vertical-align: middle;
+    /* vertical-align: middle; */
     display: block;
 }
 

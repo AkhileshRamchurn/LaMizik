@@ -7,7 +7,7 @@
 
     if(isset($_SESSION["User_ID"])){
         //request from ajax
-        //if user clicks like or dislike button
+        //action is set
         if(isset($_POST['action'])){
             //alert('receiving till here');
             
@@ -22,14 +22,14 @@
                     case 'like':
                         $sql = "INSERT INTO rating (User_ID, Video_ID, Rate_Action)
                                 VALUES($user_id, $video_id, 'Liked')
-                                ON DUPLICATE KEY UPDATE Rate_Action ='Liked'";
+                                ON DUPLICATE KEY UPDATE Rate_Action ='Liked'";//perform an update instead
                             
                         break;
                     
                     case 'dislike':
                         $sql = "INSERT INTO rating (User_ID, Video_ID, Rate_Action)
                             VALUES($user_id, $video_id, 'Disliked')
-                            ON DUPLICATE KEY UPDATE Rate_Action ='Disliked'";
+                            ON DUPLICATE KEY UPDATE Rate_Action ='Disliked'";//perform an update instead
                         
                         break;
                     case 'unlike':

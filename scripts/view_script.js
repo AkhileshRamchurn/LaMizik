@@ -17,7 +17,7 @@ $(document).ready(function(){
             var video_id = $(this).attr('data-id'); //receives data from data-id
             var clicked_btn = $(this);
             
-            //if user likes the video
+            //check if like button is unselected
             if(clicked_btn.hasClass('fa-thumbs-o-up')){
                 action ='like';
             }
@@ -26,7 +26,6 @@ $(document).ready(function(){
                 action='unlike';
             }
     
-            //using ajax to make changes without reloading
             $.ajax({
                 url: 'ajax/user_ratingAjax.php',
                 type: 'post',
@@ -40,24 +39,22 @@ $(document).ready(function(){
                 //if the response is successful from server
                 success: function(data){
 
-                res = JSON.parse(JSON.stringify(data)); 
-            
+               // alert(JSON.stringify(data.likes+" "+data.dislikes));    
+                    if(action == 'like'){
+                        clicked_btn.removeClass('fa-thumbs-o-up');
+                        clicked_btn.addClass('fa-thumbs-up');
+                    }else if(action == "unlike"){
+                        clicked_btn.removeClass('fa-thumbs-up');
+                        clicked_btn.addClass('fa-thumbs-o-up');
+                    }
     
-                if(action == 'like'){
-                    clicked_btn.removeClass('fa-thumbs-o-up');
-                    clicked_btn.addClass('fa-thumbs-up');
-                }else if(action == "unlike"){
-                    clicked_btn.removeClass('fa-thumbs-up');
-                    clicked_btn.addClass('fa-thumbs-o-up');
-                }
-    
-                //display the number of likes and dislikes
-                
-                clicked_btn.siblings('span.likes').text(res.likes);
-                clicked_btn.siblings('span.dislikes').text(res.dislikes);
-    
-                //change button styling of the other button if the user is reacting the second time to video
-                clicked_btn.siblings('i.fa-thumbs-down').removeClass('fa-thumbs-down').addClass('fa-thumbs-o-down')
+                    //display updated number of likes and dislikes
+                    $('span.likes').text(data.likes);
+                    $('span.dislikes').text(data.dislikes);
+        
+                    //change button styling of the other button if the user is reacting the second time to video
+                    //make sure that dislike button is unselected
+                    $('i.fa-thumbs-down').removeClass('fa-thumbs-down').addClass('fa-thumbs-o-down');
                 }
             });   
 
@@ -67,9 +64,6 @@ $(document).ready(function(){
             $('.my-modal-overlay2').addClass('active');
         }
         
-
-
-
     });
 
     //if user clicks on the dislike button
@@ -79,16 +73,16 @@ $(document).ready(function(){
             video_id = $(this).data('id'); //receives data from data-id (line 195)
                 clicked_btn = $(this);
 
-                //if user likes the video
+                //check if dislike button is unselected
                 if(clicked_btn.hasClass('fa-thumbs-o-down')){
                     action ='dislike';
                 }
-                //else if user unlike video
+                //else if button has already been selected
                 else if(clicked_btn.hasClass('fa-thumbs-down')){
                     action='undislike';
                 }
         
-                //using ajax to make changes without reloading
+        
             $.ajax({
                 url: 'ajax/user_ratingAjax.php',
                 type: 'post',
@@ -102,22 +96,24 @@ $(document).ready(function(){
                 //if the response is successful from server
                 success: function(data){
                     
-                res = JSON.parse(JSON.stringify(data)); 
-                    
-                if(action == 'dislike'){
-                    clicked_btn.removeClass('fa-thumbs-o-down');
-                    clicked_btn.addClass('fa-thumbs-down');
-                }else if(action == "undislike"){
-                    clicked_btn.removeClass('fa-thumbs-down');
-                    clicked_btn.addClass('fa-thumbs-o-down');
-                }
+            
+                //alert(JSON.stringify(data.likes+" "+data.dislikes)); 
+                        
+                    if(action == 'dislike'){
+                        clicked_btn.removeClass('fa-thumbs-o-down');
+                        clicked_btn.addClass('fa-thumbs-down');
+                    }else if(action == "undislike"){
+                        clicked_btn.removeClass('fa-thumbs-down');
+                        clicked_btn.addClass('fa-thumbs-o-down');
+                    }
         
-                //display the number of likes and dislikes
-                clicked_btn.siblings('span.likes').text(res.likes);
-                clicked_btn.siblings('span.dislikes').text(res.dislikes);
-        
-                //change button styling of the other button if the user is reacting the second time to video
-                clicked_btn.siblings('i.fa-thumbs-up').removeClass('fa-thumbs-up').addClass('fa-thumbs-o-up')
+                    //display the updated number of likes and dislikes
+                    $('span.likes').text(data.likes);
+                    $('span.dislikes').text(data.dislikes);
+            
+                    //change button styling of the other button if the user is reacting the second time to video
+                    //make sure that dislike button is unselected
+                    $('i.fa-thumbs-up').removeClass('fa-thumbs-up').addClass('fa-thumbs-o-up');
                 }
             });
 

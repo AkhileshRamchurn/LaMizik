@@ -188,13 +188,13 @@
 
 							?>
 
-							<!-- To access session variable in view.js -->
+							<!-- To access session variable in view_script.js -->
 							<input type="hidden" value=<?php echo $user_id?> id="user_id">	
 							
 							<!-- Checks if user has registered in order to like/dislike -->
 							<?php if($user_id != null): ?>
 								<div class="like-wrapper">
-									<!-- if user likes post, style button differently -->
+									<!-- if user liked video, style button differently -->
 									<i <?php if(userLiked($video_id, $user_id)): ?>
 									class="fa fa-thumbs-up like-btn"
 
@@ -203,11 +203,11 @@
 									<?php endif ?>	
 									data-id="<?php echo $video_id ?>"></i>
 							
-									<span class="likes rating-counter"><?php echo getLikes($video_id); ?> </span>
+									<span class="likes"><?php echo getLikes($video_id); ?> </span>
 								</div>
 								
 								<div class="dislike-wrapper">
-									<!-- if user dislikes post, style button differently -->
+									<!-- if user disliked video, style button differently -->
 									<i <?php if(userDisliked($video_id, $user_id)): ?>
 									class="fa fa-thumbs-down dislike-btn"
 
@@ -216,10 +216,11 @@
 									<?php endif ?>	
 									data-id="<?php echo $video_id ?>"></i>
 
-									<span class="dislikes rating-counter"><?php echo getDisLikes($video_id); ?></span>
+									<span class="dislikes"><?php echo getDisLikes($video_id); ?></span>
 								</div>
 							
-							<!-- else just display like/dislike  -->
+							<!-- else just display like/dislike. The user will only be able to view 
+							number of likes and dislikes -->
 							<?php else: ?>
 								<div class="like-wrapper">
 									<i	class="fa fa-thumbs-o-up like-btn"></i>

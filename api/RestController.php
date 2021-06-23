@@ -2,6 +2,8 @@
 
 //Adapted from https://phppot.com/php/php-restful-web-service/
 require_once("UserRestHandler.php");
+require_once("videoRestHandler.php");
+
 $method = $_SERVER['REQUEST_METHOD'];
 $view = "";
 
@@ -57,5 +59,40 @@ switch($resource){
 			break;
 		}
 	break;
+
+	case "video":
+		switch($page_key){
+
+			case "list":
+				// to handle REST Url /user/list/
+				
+				//echo "list invoked from video";
+				$videoRestHandler = new VideoRestHandler();
+				$result = $videoRestHandler->getAllVideos();
+			break;
+
+			case "create":
+				// to handle REST Url /video/create/
+				//echo "create invoked from video";
+				$videoRestHandler = new VideoRestHandler();
+				$videoRestHandler->add();
+			break;
+		
+			case "delete":
+				// to handle REST Url /video/delete/<row_id>
+				//echo "delete invoked from video";
+				$videoRestHandler = new VideoRestHandler();
+				$result = $videoRestHandler->deleteVideoById();
+			break;
+		
+			case "update":
+				//echo "update invoked from video";
+				// to handle REST Url /video/update/<row_id>
+				$videoRestHandler = new VideoRestHandler();
+				$userRestHandler->editVideoById();
+			break;
+		}
+	break;
+		
 }	
 ?>

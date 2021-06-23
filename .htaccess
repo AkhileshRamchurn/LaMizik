@@ -32,3 +32,16 @@ RewriteRule ^user/update/([0-9]+)$   api/RestController.php?resource=user&page_k
 
 
 #video-------------------------------------------------------------------------------------------------
+RewriteRule ^video/list/$   api/RestController.php?resource=video&page_key=list [nc,qsa]
+RewriteRule ^video/list$   api/RestController.php?resource=video&page_key=list [nc,qsa]
+RewriteRule ^video/list/([0-9])/$   api/RestController.php?resource=video&page_key=list&video_id=$1 [nc,qsa]
+RewriteRule ^video/list/([0-9])$    api/RestController.php?resource=video&page_key=listvideo_id=$1 [nc,qsa]
+
+RewriteRule ^video/create/$   api/RestController.php?resource=video&page_key=create [nc,qsa]
+RewriteRule ^video/create$   api/RestController.php?resource=video&page_key=create [nc,qsa]
+
+RewriteRule ^video/delete/([0-9]+)/$   api/RestController.php?resource=video&page_key=delete&video_id=$1 [nc,qsa]
+RewriteRule ^video/delete/([0-9]+)$   api/RestController.php?resource=video&page_key=delete&video_id=$1 [nc,qsa]
+
+RewriteRule ^video/update/([0-9]+)/$   api/RestController.php?resource=video&page_key=update&video_id=$1 [nc,qsa]
+RewriteRule ^video/update/([0-9]+)$   api/RestController.php?resource=video&page_key=update&video_id=$1 [nc,qsa] 

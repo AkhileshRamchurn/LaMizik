@@ -37,7 +37,7 @@
                         <div class="profile-menu-left">
                             <ul>
                                 <li><i class="fas fa-user nav-icon-white"></i></li>
-                                <li>Profile</li>			
+                                <li><a href="user_profile.php">Profile</li>			
                             <ul>	
                         </div>	
                         <div class="profile-menu-right">
@@ -49,7 +49,7 @@
                             <ul>
                                 <li><i class="fas fa-cog"></i></li>
                             <ul>
-                                <li><a href="user_profile.php">Settings</a></li>
+                                <li>Settings</a></li>
                             <ul>
                         </div>
 

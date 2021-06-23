@@ -1,12 +1,6 @@
 <?php
     session_start();
 	require_once 'dbconnect.php';
-
-    $url="http://localhost/Lamizik/video/list";
-    $video_json= file_get_contents($url);
-
-    
-
 ?>
 
 <!DOCTYPE html>

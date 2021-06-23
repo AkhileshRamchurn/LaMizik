@@ -1,11 +1,12 @@
 $(document).ready(function(){
-    var url = "http://localhost/Lamizik/video/list";
-   
-    function fetchVideosAPI(){
+    // var url = "http://localhost/Lamizik/video/list";
+   var url ="ajax/getVideoData.php";
+    function fetchVideoData(){
         $.ajax({
             url:url,
-            // accepts: "application/json",
-            headers:{Accept:"application/json"},
+            accepts: "application/json",
+            // headers:{Accept:"application/json"},
+            cache: false,
             type:"POST",
             error: function(xhr){
                alert("An error occured: " + xhr.status + " " + xhr.statusText);
@@ -13,14 +14,10 @@ $(document).ready(function(){
         })
         .done(function(data){
             // alert(JSON.stringify(data));
-            // console.log(data);
-
-
-
+             console.log(data);
         });
     }
-
-    fetchVideosAPI();
+    fetchVideoData();
 
     $(".owl-carousel ").owlCarousel({
         loop:true,

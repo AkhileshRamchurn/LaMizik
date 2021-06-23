@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Montserrat", sans-serif;
+}
+
+.main-container {
+    min-height: 90vh;
+    margin-top: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: black;
+    gap: 2em;
+}
+
+.main-title {
+    font-size: 40px;
+	font-weight: bold;
+}
+
+.main-container label {
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.text-input {
+    background-color: #eee;
+	border-radius: 5px;
+	border: none;
+	padding: 10px 12px;
+	margin-block: 10px 20px;
+	width: 100%;
+    font-size: 14px;
+}
+
+.textarea-input {
+    height: 100px;
+}
+
+.radio-btn{
+    vertical-align: middle !important;
+}
+
+.radio-option-container label {
+    font-size: 14px;
+}
+
+.radio-option {
+    font-size: small;
+}
+
+.radio-option-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.radio-input-element {
+    margin-block: 10px 20px;
+}
+
+.upload-form {
+    display: flex;
+    gap: 3em;
+    margin-bottom: 2.5em;
+}
+
+.checkbox-menu li label {
+    display: block;
+    padding: 3px 10px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+    margin:0;
+    transition: background-color .4s ease;
+}
+.checkbox-menu li input {
+    margin: 0px 5px;
+    top: 2px;
+    position: relative;
+}
+
+.checkbox-menu li label {
+    font-size: 12px;
+}
+
+.checkbox-menu li label:hover,
+.checkbox-menu li label:focus {
+    background-color: #f5f5f5;
+}
+
+.genre-container {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    margin-block: 10px 20px;
+}
+
+.submit-btn {
+	border-radius: 10px;
+    border: 1px solid #FF4B2B;
+	background-color: #FF4B2B;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 20px;
+    text-transform: uppercase;
+    transition:background-color .15s ease-in;
+    margin-top: 1em;
+}
+
+.submit-btn:active {
+	transform: scale(0.95);
+}
+
+.submit-btn:focus {
+	outline: none;
+}
+
+.submit-btn:hover {
+    background-color: white;
+    color: #FF4B2B;
+}
+
+.file-upload-box {
+    width: 320px;
+    height: 400px;
+    background-color: rgba(255, 127, 80, 0.274);
+    border-radius: 1em;
+    border: 2px dashed orange;
+}
+
+.real-input-box {
+    position: relative;
+    top: -400px;
+    width: 320px;
+    height: 400px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.input-right {
+    height: 400px;
+}
+
+.upload-box-content {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upload-icon {
+    color: rgb(255, 127, 80);
+}
+
+.upload-box-text {
+    font-size: 14px;
+    font-weight: 800;
+    width: 70%;
+    text-align: center;
+    color: rgb(255, 127, 80);
+}

@@ -311,7 +311,7 @@
                         </form>
                     </div>
                     <div class="manage-wallet-panel">
-                        <h3 class="title title3">Manage payment option</h3>
+                        <h3 class="title title3 <?php if ($linkedCard == 1) {echo "title4";} ?>">Manage payment option</h3>
                         <?php
                             if ($linkedCard == 0) {
                                 ?>

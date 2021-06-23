@@ -44,6 +44,10 @@
     margin-block: 50px 25px;
 }
 
+.title4 {
+    min-width: 350px;
+}
+
 .left-contents-panel label {
     max-width: 250px;
     display: block;

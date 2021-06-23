@@ -41,9 +41,9 @@
                 $stmt->bindParam(1, $videoId,PDO::PARAM_INT);
                 $stmt->execute();
 
-                $filepath = glob("video/$videoId.*");
+                $filepath = glob("../video/$videoId.*");
                 unlink($filepath[0]);
-                $filepath = glob("video/thumbnail/$videoId"."t.*");
+                $filepath = glob("../video/thumbnail/$videoId"."t.*");
                 unlink($filepath[0]);
             }
         }

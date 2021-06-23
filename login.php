@@ -52,25 +52,33 @@
 			$row = $stmt->fetch(PDO::FETCH_ASSOC);
 			
 			if ($row !== false){
-				
-				$hashedPassword = $row["Password"];
-				$checkPassword = password_verify($password, $hashedPassword);
-					
-				if ($checkPassword === false){
-					$passwordErr = 'Incorrect Password!';
-				}
-				else{
-					$_SESSION["User_ID"] = $row["User_ID"];
-					$_SESSION["Username"] = $row["Username"];
-					$_SESSION["User_Type"] = $row["User_Type"];
-					$_SESSION["LinkedCard"] = $row["Linked_Card"];
 
-					if ($row["User_Type"] == "Admin") {
-						header("Location: adminAnalytics.php");
+				if ($row["IsBanned"] == 0) {
+				
+					$hashedPassword = $row["Password"];
+					$checkPassword = password_verify($password, $hashedPassword);
+						
+					if ($checkPassword === false){
+						$passwordErr = 'Incorrect Password!';
 					}
-					else {
-						header("Location: home.php");
+					else{
+						$_SESSION["User_ID"] = $row["User_ID"];
+						$_SESSION["Username"] = $row["Username"];
+						$_SESSION["User_Type"] = $row["User_Type"];
+						$_SESSION["LinkedCard"] = $row["Linked_Card"];
+
+						if ($row["User_Type"] == "Admin") {
+							header("Location: adminAnalytics.php");
+						}
+						else {
+							header("Location: home.php");
+						}
 					}
+
+				}
+				else {
+					$usernameErr = 'User not found!';
+					$username = '';
 				}
 				
 			}

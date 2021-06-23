@@ -74,6 +74,19 @@
 
                                         <?php
                                     }
+                                    else if ($user_type_nav == "Admin"){
+                                        ?>
+
+                                        <div class="profile-menu-right">
+                                            <ul>
+                                                <li><i class="fas fa-chart-line"></i></li>
+                                            <ul>
+                                                <li><a href="adminAnalytics.php">Admin Dashboard</a></li>
+                                            <ul>
+                                        </div>
+
+                                        <?php
+                                    }
                                 ?>
 
                                 <div class="profile-menu-right">

@@ -7,10 +7,17 @@ Class Video{
     public function getAllVideo(){
 		if(isset($_GET['video_id'])){
 			$video_id = $_GET['video_id'];
-			$query = "SELECT Video_ID, Title, Description, Video_Type, Status, Upload_Timestamp, User_ID FROM video WHERE Video_ID = $video_id";
+			$sql1 = "(SELECT Video_ID, Title, Description, Video_Type, Status, Upload_Timestamp, video.User_ID, user.Username FROM video, user WHERE video.User_ID=user.User_ID AND video.Video_ID = $video_id)";
 		} else {
-			$query = "SELECT Video_ID, Title, Description, Video_Type, Status, Upload_Timestamp, User_ID FROM video";
+			$sql1 = "(SELECT Video_ID, Title, Description, Video_Type, Status, Upload_Timestamp, video.User_ID, user.Username FROM video, user WHERE video.User_ID=user.User_ID)";
 		}
+
+		$sql2 = "(SELECT Video_ID, COUNT(*) AS Views FROM views GROUP BY Video_ID)";
+
+		$query =	"SELECT a.Video_ID, Title, Description, Video_Type, Status, Upload_Timestamp, User_ID, Username, IFNULL(Views, 0) AS Views
+					 FROM $sql1 a LEFT JOIN $sql2 b ON a.Video_ID=b.Video_ID";
+
+
 		$dbcontroller = new DBController();
 		$this->users = $dbcontroller->executeSelectQuery($query);
 		return $this->users;

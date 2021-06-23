@@ -1,6 +1,8 @@
 <?php
 
+    session_start();
     require 'dbconnect.php';
+
     $k = 5; //Number of most similar users to return
 
     if (!empty($_GET['user_id'])) {

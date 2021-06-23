@@ -1,6 +1,23 @@
 <?php 
     session_start();
+
+    $userType = null;
+    if (isset($_SESSION['User_Type'])) {
+        $userType = $_SESSION['User_Type'];
+    }
+
+    if ($userType != 'NormalUser') {
+        header('HTTP/1.1 403 Forbidden'); 
+        die();
+    }
+
     $userId = null;
+
+    $linkedCard = null;
+    if (isset($_SESSION['LinkedCard'])) {
+        $linkedCard = $_SESSION['LinkedCard'];
+    }
+
     require 'dbconnect.php';
     if(isset($_SESSION["User_ID"])){
         $userId = $_SESSION["User_ID"];
@@ -90,7 +107,7 @@
                     $stmt2 ->bindParam(1,$phone_num,PDO::PARAM_INT);
                     $stmt2 ->bindParam(2,$userId,PDO::PARAM_INT);
                     $stmt2 ->execute();
-
+                    $_SESSION['Username'] = $username;
                     echo $username." ".$firstname." ".$lastname." ".$email." ".$phone_num;
                     
                 }
@@ -144,9 +161,9 @@
                     $sql2 = "UPDATE user SET Password = ? WHERE User_ID = ?";
                     $stmt = $conn -> prepare($sql2);
                     $stmt -> bindParam(1,$hashedNewPwd,PDO::PARAM_STR);
-                    $stmt -> bindParam(2,$userId,PDO::PARAM_INT);
+                    $stmt -> bindParam(1,$userId,PDO::PARAM_INT);
                     $stmt ->execute();
-                    echo 'Your password has successfully been changed';
+                    echo 'success';
                 }
                 else{
                     echo 'Incorrect or same old password inserted!';
@@ -154,7 +171,27 @@
 
                 exit(0);
             }  
-           
+        }
+
+        /* ADD/REMOVE CARD*/
+        if(isset($_POST['card_action'])){
+            
+            if ($_POST['card_action'] == "add") {
+                $sql = "UPDATE user SET Linked_Card = 1 WHERE User_ID = ?";
+                $_SESSION["LinkedCard"] = 1;
+            }
+            else if ($_POST['card_action'] == "remove") {
+                $sql = "UPDATE user SET Linked_Card = 0 WHERE User_ID = ?";
+                $_SESSION["LinkedCard"] = 0;
+            }
+
+            $stmt = $conn -> prepare($sql);
+            $stmt -> bindParam(1,$userId,PDO::PARAM_INT);
+            $stmt -> execute();
+            
+            echo 'success';
+
+            exit(0); 
         }
     }
 ?>
@@ -165,15 +202,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=1.0, initial-scale=1.0">
     <link rel="stylesheet" href="css/user_profile.css">
-    <title>profile</title>
+    <title>Profile</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="scripts/user_profile.js"></script>
 </head>
+<?php include 'includes/navbar.php'; ?>
 <body>
-        <div class="rear-container">
-            <div class="transparent-panel"></div>
-            <div class="front-container">
-                
-                <div class="front-left-container">
-                    <h1>Profile</h1>
+    <div class="main-container">
+            
+            <div class="front-left-container">
+                <div class="header">
+                    <h1 class="main-title">Profile</h1>
                     <div class="left-navigation-panel">
                         <div class="navigation-button" id="info-btn">
                             <span></span>
@@ -185,103 +224,143 @@
                             <span></span>
                             <h4>Change Password</h4>
                         </div>
-                    </div> 
-                    
-                    <div class="left-contents-panel">
-                        <div class="personal-info-panel" >
-                            <h3>Edit your personal informations</h3>
-                            
-                            
-                            <?php
-                                    $sql3="SELECT * FROM user WHERE User_ID=?";
-                                    $stmt = $conn -> prepare($sql3);
-                                    $stmt -> bindParam(1,$userId,PDO::PARAM_INT);
-                                    $stmt -> execute();
-
-                                    $result = $stmt -> fetch(PDO::FETCH_ASSOC);
-
-                                    $sql4="SELECT Phone_Number FROM contact WHERE User_id=?";
-                                    $stmt1 = $conn -> prepare($sql4);
-                                    $stmt1 -> bindParam(1,$userId,PDO::PARAM_INT);
-                                    $stmt1 -> execute();
-
-                                    $result1 = $stmt1 ->fetch(PDO::FETCH_ASSOC);  
-                            ?>
-                            
-                            <div class="personal-info-field">
-                                <label>User Name</label>
-                                <input type="text" name="username" id="username" placeholder="<?php if(isset($_SESSION["User_ID"])){ echo $result['Username'];}?> ">  
-                            </div>       
-                            <div class="personal-info-field">
-                                <label>First Name</label>
-                                <input type="text" name="first_name" id="first_name" placeholder="<?php if(isset($_SESSION["User_ID"])){ echo $result['First_Name'];}?>"> 
-                            </div> 
-                            <div class="personal-info-field">
-                                <label>Last Name</label>
-                                <input type="text" name="last_name" id="last_name" placeholder="<?php if(isset($_SESSION["User_ID"])){ echo $result['Last_Name'];}?>"> 
-                            </div>
-                            <div class="personal-info-field">
-                                <label>Email</label>
-                                <input type="text" name="email" id="email" placeholder="<?php if(isset($_SESSION["User_ID"])){ echo $result['Email'];}?>"> 
-                            </div> 
-                            <div class="personal-info-field">
-                                <label>Phone Number</label>
-                                <input type="text" name="phone_num" id="phone_num" placeholder="<?php if(isset($_SESSION["User_ID"])){ echo $result1['Phone_Number'] ;}?>"> 
-                            </div>  
-                            <div class="personal-info-field">
-                                <div id="change-personal-info-response"></div>
-                            </div>     
-                            <div class="personal-info-field">
-                                <div class="update-info-btn">
-                                    <button type="button" id="update-btn" data-id="<?php echo $userId ?>">UPDATE</button>   
-                                </div>
-                            </div>      
-                        </div>
-                        <div class="resetPassword-panel" style="display:none">
-                            <h3>Edit your password</h3>
-                            <form action = "<?php echo $_SERVER["PHP_SELF"];?>" method = "POST" id="password-form">
-                                
-                                <div class="change-password-field">
-                                    <label>Old Password</label>
-                                    <input type="password" name="old_password" id="old_password" placeholder="Old Password" >        
-                                </div>
-
-                                <div class="change-password-field">
-                                    <label>New Password</label>
-                                    <input type="password" name="new_password" id="new_password" placeholder="New Password"> 
-                                </div>        
-                                
-                                <div class="change-password-field">
-                                    <label>Repeat Password</label>
-                                    <input type="password" name="repeat_password" id="repeat_password" placeholder="Repeat Password"> 
-                                </div>
-                                
-                                <div class="change-password-field">
-                                    <div id="change-password-response"></div>                            
-                                </div>
-                                <div class="change-password-field">
-                                    <div class="change-password-btn">
-                                        <button type="submit" id="pw-btn" data-id="<?php echo $userId ?>">CHANGE</button>   
-                                    </div>
-                                </div>                        
-                            </form>
+                        <div class="navigation-button" id="wallet-btn">
+                            <span></span>
+                            <span></span>
+                            <h4>Manage Card</h4>
                         </div>
                     </div>
-                </div>
-                <div class="front-right-container">
-                    <div class="profile-container">
-                        <div class="profile-pic">
-                            <img src="img/user.png">
-                            <input type="file" id="file">
-                            <label for="file" id="uploadBtn">Choose Photo</label>
-                        </div>
-                    </div>    
-                </div>
+                </div> 
                 
+                <div class="left-contents-panel">
+                    <div class="personal-info-panel" >
+                        <h3 class="title">Edit your personal information</h3>
+                        
+                        <?php
+                                $sql3="SELECT * FROM user WHERE User_ID=?";
+                                $stmt = $conn -> prepare($sql3);
+                                $stmt -> bindParam(1,$userId,PDO::PARAM_INT);
+                                $stmt -> execute();
+
+                                $result = $stmt -> fetch(PDO::FETCH_ASSOC);
+
+                                $sql4="SELECT Phone_Number FROM contact WHERE User_id=?";
+                                $stmt1 = $conn -> prepare($sql4);
+                                $stmt1 -> bindParam(1,$userId,PDO::PARAM_INT);
+                                $stmt1 -> execute();
+
+                                $result1 = $stmt1 ->fetch(PDO::FETCH_ASSOC);  
+                        ?>
+                        
+                        <div class="personal-info-field">
+                            <label>Username</label>
+                            <input type="text" name="username" id="username" placeholder="<?php if(isset($_SESSION["User_ID"])){ echo $result['Username'];}?> ">  
+                        </div>       
+                        <div class="personal-info-field">
+                            <label>First Name</label>
+                            <input type="text" name="first_name" id="first_name" placeholder="<?php if(isset($_SESSION["User_ID"])){ echo $result['First_Name'];}?>"> 
+                        </div> 
+                        <div class="personal-info-field">
+                            <label>Last Name</label>
+                            <input type="text" name="last_name" id="last_name" placeholder="<?php if(isset($_SESSION["User_ID"])){ echo $result['Last_Name'];}?>"> 
+                        </div>
+                        <div class="personal-info-field">
+                            <label>Email</label>
+                            <input type="text" name="email" id="email" placeholder="<?php if(isset($_SESSION["User_ID"])){ echo $result['Email'];}?>"> 
+                        </div> 
+                        <div class="personal-info-field">
+                            <label>Phone Number</label>
+                            <input type="text" name="phone_num" id="phone_num" placeholder="<?php if(isset($_SESSION["User_ID"])){ echo $result1['Phone_Number'] ;}?>"> 
+                        </div>  
+                        <div class="personal-info-field">
+                            <div id="change-personal-info-response"></div>
+                        </div>     
+                        <div class="personal-info-field">
+                            <div class="update-info-btn">
+                                <button type="button" id="update-btn" data-id="<?php echo $userId ?>">UPDATE</button>   
+                            </div>
+                        </div>      
+                    </div>
+                    <div class="resetPassword-panel">
+                        <h3 class="title title2">Edit your password</h3>
+                        <form action = "<?php echo $_SERVER["PHP_SELF"];?>" method = "POST" id="password-form">
+                            
+                            <div class="change-password-field">
+                                <label>Old Password</label>
+                                <input type="password" name="old_password" id="old_password">        
+                            </div>
+
+                            <div class="change-password-field">
+                                <label>New Password</label>
+                                <input type="password" name="new_password" id="new_password"> 
+                            </div>        
+                            
+                            <div class="change-password-field">
+                                <label>Repeat Password</label>
+                                <input type="password" name="repeat_password" id="repeat_password"> 
+                            </div>
+                            
+                            <div class="change-password-field">
+                                <div id="change-password-response"></div>                            
+                            </div>
+                            <div class="change-password-field">
+                                <div class="change-password-btn">
+                                    <button type="submit" id="pw-btn" data-id="<?php echo $userId ?>">CHANGE</button>   
+                                </div>
+                            </div>                        
+                        </form>
+                    </div>
+                    <div class="manage-wallet-panel">
+                        <h3 class="title title3">Manage payment option</h3>
+                        <?php
+                            if ($linkedCard == 0) {
+                                ?>
+
+                                <div>
+                                    <label>Card Number</label>
+                                    <input class="input-card-number" type="text" name="cardNumber">    
+                                </div>
+                                <div>
+                                    <label>Expiration Date</label>
+                                    <input class="input-card-exp" type="text" name="cardExpDate" placeholder="Month/Year"> 
+                                </div>
+                                <div>
+                                    <label>CCV</label>
+                                    <input class="input-card-ccv" type="text" name="cardCCV">
+                                </div>
+                                <button id="btn-add-card" data-id="<?php echo $userId ?>">ADD CARD</button>
+
+                                <?php
+                            }
+                            else {
+                                ?>
+
+                                <p class="label-p">A card has already been linked to your account</p>
+                                <button id="btn-remove-card" data-id="<?php echo $userId ?>">REMOVE CARD</button>
+                                <?php
+                            }
+                        ?>
+                    </div>
+                </div>
             </div>
-        </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="scripts/user_profile.js"></script>
-    
-    </body>
+
+            <div class="front-right-container">
+                <div class="left-panel-signin">
+                    <h1 class="title title-right">Manage Account</h1>
+                    <p class="subtitle">Modify your account details</p>
+                </div>
+            </div>
+
+            <!-- <div class="front-right-container">
+                <div class="profile-container">
+                    <div class="profile-pic">
+                        <img src="img/user.png">
+                        <input type="file" id="file">
+                        <label for="file" id="uploadBtn">Choose Photo</label>
+                    </div>
+                </div>    
+            </div> -->
+
+    </div>
+</body>
 </html>

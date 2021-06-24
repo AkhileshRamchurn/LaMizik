@@ -28,16 +28,17 @@ $(document).ready(function(){
         });
     }
     fetchVideoData();
-
+    
+    
     var last_pos_rec=8;//position in video array
     setTimeout(function(){
         console.log(videoDataLength);
         if (videoDataLength < 8) {
             last_pos_rec = videoDataLength;
         }
-    },100);
+    },100);//wait 100ms for data to be fetched
 
-    /*Displays videos when home page is first loaded*/
+    /*Execute  displayRecommendVideos after video data has been fetched*/
     function displayRecommendVideos(){
         if(user_id) {
             var display_reVideos="<div class='recommended-videos'>";
@@ -57,22 +58,24 @@ $(document).ready(function(){
         }
 
     }
-    /*Execute  displayRecommendVideos after video data has been fetched*/
+    
+    /*Displays videos when home page is first loaded*/
     setTimeout(function(){
         displayRecommendVideos();
-    },150);
+    },200);
     
     /*load explore videos on scroll*/
     var limit=8;//number of videos to display
     var start=0;//index of first video to be displayed
     var last_pos=8;//position in video array
+    var stopScrolling=false;
     
     setTimeout(function(){
         console.log(videoDataLength);
         if (videoDataLength < 8) {
             last_pos = videoDataLength;
         }
-    },100);
+    },150);
 
     function loadExploreVideoOnScroll(start,last_pos){ 
         var display_exVideos="<div class='explore-videos'>";
@@ -90,7 +93,7 @@ $(document).ready(function(){
     // Display intial explore videos
     setTimeout(function(){
         loadExploreVideoOnScroll(start,last_pos); 
-    },150);
+    },200);
 
     // Display explore videos on scroll
     $(window).scroll(function(e){//when we are scrolling
@@ -100,16 +103,13 @@ $(document).ready(function(){
                  start +=limit;
                 
                 //checks if there are enough videos that can be displayed
-                if(last_pos+limit > videoDataLength){
+                if(last_pos+limit > videoDataLength && stopScrolling==false){
+                    // console.log('working');
+                    stopScrolling=true;
                     $(window).unbind('scroll'); //stops screen from scrolling 
                     last_pos = videoDataLength;
                     loadExploreVideoOnScroll(start,last_pos);  
                     $('.moreVideosMessage').html('Pena enkor video pln. to scroll em xD'); 
-                    
-                    // if($('.explore-container').text().length==0){ //remove empty explore container created due to scrolling
-                    //     $('.explore-container').empty();
-                    // }
-                       
                 }
                 else{
                     last_pos +=limit;
@@ -117,9 +117,8 @@ $(document).ready(function(){
                 }
                         
             }
-        },1500);    
+        },1750);    
     })
-   
 
     /*script for owl carousel*/
     $(".owl-carousel ").owlCarousel({

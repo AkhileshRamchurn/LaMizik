@@ -23,12 +23,12 @@ class VideoRestHandler extends SimpleRest {
 		
 		$result["output"] = $rawData;
 				
-		if(strpos($requestContentType,'json') !== false){
+		// if(strpos($requestContentType,'json') !== false){
 		
 			//echo "sss";
 			$response = $this->encodeJson($result);
 			echo $response;
-		}
+		// }
 		
 	}
     function add() {	

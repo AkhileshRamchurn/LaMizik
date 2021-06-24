@@ -14,7 +14,7 @@ Class Video{
 
 		$sql2 = "(SELECT Video_ID, COUNT(*) AS Views FROM views GROUP BY Video_ID)";
 
-		$query =	"SELECT a.Video_ID, Title, Description, Video_Type, Status, Upload_Timestamp, User_ID, Username, IFNULL(Views, 0) AS Views
+		$query =	"SELECT a.Video_ID, Title, Description, Video_Type, Status, UNIX_TIMESTAMP(Upload_Timestamp) AS Upload_Timestamp, User_ID, Username, IFNULL(Views, 0) AS Views
 					 FROM $sql1 a LEFT JOIN $sql2 b ON a.Video_ID=b.Video_ID";
 
 

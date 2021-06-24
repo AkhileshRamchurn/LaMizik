@@ -1,0 +1,78 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/videos",
+    "definitions": {
+        "videos": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "output": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Output"
+                    }
+                }
+            },
+            "required": [
+                "output"
+            ]
+        },
+        "Output": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "Video_ID": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "Title": {
+                    "type": "string"
+                },
+                "Description": {
+                    "type": "string"
+                },
+                "Video_Type": {
+                    "type": "string",
+                    "enum": [
+                        "performance",
+                        "lesson"
+                    ]
+                },
+                "Status": {
+                    "type": "string",
+                    "enum": [
+                        "Pending",
+                        "Approved"
+                    ]
+                },
+                "Upload_Timestamp": {
+                    "type": "string"
+                },
+                "User_ID": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "Username": {
+                    "type": "string"
+                },
+                "Views": {
+                    "type": "string",
+                    "format": "integer"
+                }
+            },
+            "required": [
+                "Description",
+                "Status",
+                "Title",
+                "Upload_Timestamp",
+                "User_ID",
+                "Username",
+                "Video_ID",
+                "Video_Type",
+                "Views"
+            ]
+
+        }
+
+    }
+}

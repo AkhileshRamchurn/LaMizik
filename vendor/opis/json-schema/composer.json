@@ -1,14 +1,13 @@
 {
     "name": "opis/json-schema",
-    "description": "Json Schema Validator for PHP",
+    "description": "Json Schema Validator",
     "keywords": [
         "json",
         "schema",
-        "json-schema",
         "validation",
         "validator"
     ],
-    "homepage": "https://opis.io/json-schema",
+    "homepage": "http://www.opis.io/json-schema",
     "license": "Apache-2.0",
     "authors": [
         {
@@ -21,15 +20,18 @@
         }
     ],
     "require": {
-        "php": "^7.4 || ^8.0",
-        "ext-json": "*",
-        "opis/string": "^2.0",
-        "opis/uri": "^1.0"
+        "php": ">=7.0"
     },
     "require-dev": {
+        "opis/string": "^1.4",
         "ext-bcmath": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
         "ext-intl": "*",
-        "phpunit/phpunit": "^9.0"
+        "phpunit/phpunit": "^6.5 || ^7.0 || ^9.4"
+    },
+    "suggest": {
+        "opis/string": "A standalone library for manipulating multibyte strings"
     },
     "autoload": {
         "psr-4": {
@@ -39,11 +41,12 @@
     "autoload-dev": {
         "psr-4": {
             "Opis\\JsonSchema\\Test\\": "tests/"
-        }
+        },
+        "files": ["tests/functions.php"]
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.x-dev"
+            "dev-master": "1.0.x-dev"
         }
     }
 }

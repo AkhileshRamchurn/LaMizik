@@ -42,7 +42,10 @@
                     "type": "string",
                     "enum": [
                         "Pending",
-                        "Approved"
+                        "Approved",
+                        "Rejected",
+                        "Deleted",
+                        "Permanently Deleted"
                     ]
                 },
                 "Upload_Timestamp": {

@@ -32,8 +32,8 @@
             <h2>Picks of the day</h1>
             <div class="owl-carousel owl-theme">
                 <div class="item">
-                    <a href="view.php?video_id=21" target="_self" >    
-                       <img src="video/thumbnail/21t.jpg"  >
+                    <a href="view.php?video_id=27" target="_self" >    
+                       <img src="video/thumbnail/27t.jpg"  >
                     </a>	
                 </div>
                 <div class="item">

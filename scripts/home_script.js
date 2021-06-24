@@ -19,19 +19,29 @@ $(document).ready(function(){
             }
         })
         .done(function(data){
+            console.log(data);
             videoData = data.output;
             videoDataLength=videoData.length;
-            console.log(videoData[0].Upload_Timestamp);
+            console.log(videoDataLength);
+            console.log(videoData);
          
         });
     }
     fetchVideoData();
 
+    var last_pos_rec=8;//position in video array
+    setTimeout(function(){
+        console.log(videoDataLength);
+        if (videoDataLength < 8) {
+            last_pos_rec = videoDataLength;
+        }
+    },100);
+
     /*Displays videos when home page is first loaded*/
     function displayRecommendVideos(){
         if(user_id) {
             var display_reVideos="<div class='recommended-videos'>";
-            for(var i=0;i<8; i++){
+            for(var i=0;i<last_pos_rec; i++){
                 display_reVideos= display_reVideos+"<div class='video-container' >";
                 display_reVideos= display_reVideos+"<a href='view.php?video_id="+videoData[i].Video_ID+"' target='_self'>";  
                 display_reVideos=display_reVideos+"<img src='video/thumbnail/"+videoData[i].Video_ID+"t.jpg'>";
@@ -50,13 +60,20 @@ $(document).ready(function(){
     /*Execute  displayRecommendVideos after video data has been fetched*/
     setTimeout(function(){
         displayRecommendVideos();
-    },100);
+    },150);
     
     /*load explore videos on scroll*/
     var limit=8;//number of videos to display
     var start=0;//index of first video to be displayed
     var last_pos=8;//position in video array
     
+    setTimeout(function(){
+        console.log(videoDataLength);
+        if (videoDataLength < 8) {
+            last_pos = videoDataLength;
+        }
+    },100);
+
     function loadExploreVideoOnScroll(start,last_pos){ 
         var display_exVideos="<div class='explore-videos'>";
             for(var i=start;i<last_pos; i++){
@@ -73,13 +90,13 @@ $(document).ready(function(){
     // Display intial explore videos
     setTimeout(function(){
         loadExploreVideoOnScroll(start,last_pos); 
-    },100);
+    },150);
 
     // Display explore videos on scroll
     $(window).scroll(function(e){//when we are scrolling
         // console.log('working');
         setTimeout(function(){
-            if($(window).scrollTop()+$(window).innerHeight() > $(".main-container").height() ){
+            if($(window).scrollTop()+$(window).innerHeight() > $(".explore-videos").height() ){
                  start +=limit;
                 
                 //checks if there are enough videos that can be displayed

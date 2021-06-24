@@ -79,29 +79,29 @@ $(document).ready(function(){
     $(window).scroll(function(e){//when we are scrolling
         // console.log('working');
         setTimeout(function(){
-            if($(window).scrollTop()+$(window).height() > $(".main-container").height() ){
+            if($(window).scrollTop()+$(window).innerHeight() > $(".main-container").height() ){
                  start +=limit;
                 
                 //checks if there are enough videos that can be displayed
-                if(last_pos+limit < videoDataLength){
-                    console.log('working');
+                if(last_pos+limit > videoDataLength){
                     $(window).unbind('scroll'); //stops screen from scrolling 
-                     last_pos = videoDataLength;
-                     loadExploreVideoOnScroll(start,last_pos);  
+                    last_pos = videoDataLength;
+                    loadExploreVideoOnScroll(start,last_pos);  
                     $('.moreVideosMessage').html('Pena enkor video pln. to scroll em xD'); 
                     
-      
+                    // if($('.explore-container').text().length==0){ //remove empty explore container created due to scrolling
+                    //     $('.explore-container').empty();
+                    // }
+                       
                 }
                 else{
                     last_pos +=limit;
                     loadExploreVideoOnScroll(start,last_pos);   
                 }
-                
                         
             }
         },1500);    
     })
-    
    
 
     /*script for owl carousel*/

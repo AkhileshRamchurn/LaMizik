@@ -59,7 +59,10 @@
             </div>
         </div>
         <div class='recommended-container'><h2>Recommended for you</h1></div>
-        <div class='explore-container'><h2>Explore</h1></div>
+        <div class='explore-container'>
+            <h2>Explore</h1>
+            <div class='explore-videos'></div>
+        </div>
         <div class='moreVideosMessage'></div>
     </div>
 

@@ -78,16 +78,17 @@ $(document).ready(function(){
     },150);
 
     function loadExploreVideoOnScroll(start,last_pos){ 
-        var display_exVideos="<div class='explore-videos'>";
-            for(var i=start;i<last_pos; i++){
-                display_exVideos= display_exVideos+"<div class='video-container' >";
-                display_exVideos= display_exVideos+"<a href='view.php?video_id="+videoData[i].Video_ID+"' target='_self'>";  
-                display_exVideos=display_exVideos+"<img src='video/thumbnail/"+videoData[i].Video_ID+"t.jpg'>";
-                display_exVideos=display_exVideos +"<div class='video-details'><h4>"+videoData[i].Title+"</h4></a><p>"+videoData[i].Username+"</p>"+"<p>"+moment.unix(videoData[i].Upload_Timestamp).fromNow()+"<span class='midot3'>&#183;</span>"+videoData[i].Views+" views</p>"+"</div>";  
-                display_exVideos=display_exVideos +"</div>"; 
-            }
-            display_exVideos = display_exVideos+"</div>";
-            $('.explore-container').append(display_exVideos);
+        var display_exVideos="";
+        for(var i=start;i<last_pos; i++){
+            display_exVideos= display_exVideos+"<div class='video-container' >";
+            display_exVideos= display_exVideos+"<a href='view.php?video_id="+videoData[i].Video_ID+"' target='_self'>";  
+            display_exVideos=display_exVideos+"<img src='video/thumbnail/"+videoData[i].Video_ID+"t.jpg'>";
+            display_exVideos=display_exVideos +"<div class='video-details'><h4>"+videoData[i].Title+"</h4></a><p>"+videoData[i].Username+"</p>"+"<p>"+moment.unix(videoData[i].Upload_Timestamp).fromNow()+"<span class='midot3'>&#183;</span>"+videoData[i].Views+" views</p>"+"</div>";  
+            display_exVideos=display_exVideos +"</div>"; 
+            $('.explore-videos').append(display_exVideos);
+            display_exVideos="";
+        }
+
         
     }
     // Display intial explore videos
@@ -99,7 +100,7 @@ $(document).ready(function(){
     $(window).scroll(function(e){//when we are scrolling
         // console.log('working');
         setTimeout(function(){
-            if($(window).scrollTop()+$(window).innerHeight() > $(".explore-videos").height() ){
+            if($(window).scrollTop() >= $('.explore-container').offset().top + $('.explore-container').outerHeight() - window.innerHeight){
                  start +=limit;
                 
                 //checks if there are enough videos that can be displayed

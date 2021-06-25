@@ -17,9 +17,9 @@
 
     // print_r($user_array);
 
-    for($i=0; $i<count($user_array); $i++)
+    for($k=0; $k<count($user_array); $k++)
 	{
-		$user_id = $user_array[$i]['User_ID'];
+		$user_id = $user_array[$k]['User_ID'];
 
         $similarity_json = file_get_contents("http://localhost/Lamizik/similarity.php?user_id=".$user_id);
         $similarity_obj = json_decode($similarity_json, true);
@@ -37,10 +37,10 @@
 		}
         $condition_simUser .= ")";
 		
-		$sql1 = "(SELECT Video_ID FROM views WHERE User_ID IN $condition_simUser GROUP BY Video_ID)";
-        $sql2 = "(SELECT Video_ID FROM views WHERE User_ID = $user_id GROUP BY Video_ID)";
+		$sql1 = "SELECT Video_ID FROM views WHERE User_ID IN $condition_simUser";
+        $sql2 = "(SELECT Video_ID FROM views WHERE User_ID = $user_id)";
 
-        $sql3 = "(SELECT a.Video_ID FROM $sql1 a, $sql2 b WHERE a.Video_ID != b.Video_ID GROUP BY a.Video_ID)";
+        $sql3 = "($sql1 AND Video_ID NOT IN $sql2 GROUP BY Video_ID)";
         
         $sqlfinal ="SELECT  video.Video_ID, Title, Description, Video_Type, Status, UNIX_TIMESTAMP(Upload_Timestamp) AS Upload_Timestamp, user.Username FROM $sql3 a, video, user WHERE video.Video_ID = a.Video_ID AND video.User_ID = user.User_ID";
 
@@ -50,7 +50,7 @@
       
        
         //calculating the predicted score of each video returned
-    
+
         for($i=0;$i<count($uncommon_video_array); $i++){
             $unwatched_videoid=$uncommon_video_array[$i]['Video_ID'];
             $video_weightmean=0;
@@ -95,7 +95,12 @@
                 $total_video_weightmean += $similarity_obj[0]['Other_Users'][$j]['Similarity'] * $video_score;
                 $total_similairty+=$similarity_obj[0]['Other_Users'][$j]['Similarity'];
             }
-            $video_weightmean = $total_video_weightmean/$total_similairty;
+            if ($total_similairty == 0) {
+                $video_weightmean = 0;
+            }
+            else {
+                $video_weightmean = $total_video_weightmean/$total_similairty;
+            }
             $uncommon_video_array[$i]['video_weightmean'] = $video_weightmean;
 
             $views_query ="SELECT count(*) AS numOfViews FROM views WHERE Video_ID=$unwatched_videoid";
@@ -105,25 +110,23 @@
             $uncommon_video_array[$i]['views'] = $video_views[0]['numOfViews'];
           
         }
-        
-	
+
+        usort($uncommon_video_array, function ($item1, $item2) {
+            return $item2['video_weightmean'] <=> $item1['video_weightmean'];
+        });
+    
+        // Getting the top n videos only
+        $uncommon_video_array = array_slice($uncommon_video_array, 0, $video_limit);
+
+        $user_array[$k]['Recommended_Videos'] = $uncommon_video_array;
 	}
 
 
-  
-    usort($uncommon_video_array, function ($item1, $item2) {
-        return $item2['video_weightmean'] <=> $item1['video_weightmean'];
-    });
-
-    // Getting the top n videos only
-     $uncommon_video_array = array_slice($uncommon_video_array, 0, $video_limit);
-
-
-    $jsonData = json_encode($uncommon_video_array, JSON_NUMERIC_CHECK);
-    $jsonData = json_encode($uncommon_video_array, JSON_PRETTY_PRINT);
+    $jsonData = json_encode($user_array, JSON_NUMERIC_CHECK);
+    $jsonData = json_encode($user_array, JSON_PRETTY_PRINT);
 
 
     header('Content-Type: application/json'); 
-    echo $jsonData; 
+    echo $jsonData;
 
 ?>

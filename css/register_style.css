@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
+:root {
+    --color1: black;
+    --color2: #141414;
+    --color3: #ef9c42;
+    --color4: #e77500;
+    --color5: #cc4e01;
+}
+
 * {
     box-sizing: border-box;
     padding: 0;
@@ -21,7 +29,7 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
 	place-items: center;
-	background-color: #fd582f;
+	background-color: var(--color5);
 	background-image: url("../img/guitar-1245856_1920.jpg");
     background-size: cover;
     background-position: left;
@@ -130,8 +138,8 @@ body {
 
 button {
 	border-radius: 10px;
-    border: 1px solid #FF4B2B;
-	background-color: #FF4B2B;
+    border: 1px solid var(--color5);
+	background-color: var(--color5);
 	color: #FFFFFF;
 	font-size: 12px;
 	font-weight: bold;
@@ -151,7 +159,7 @@ button:focus {
 
 button:hover {
     background-color: white;
-    color: #FF4B2B;
+    color: var(--color5);
 }
 
 .left-panel-button {
@@ -209,8 +217,8 @@ button:hover {
 }
 
 .progress-bar .step .bullet.active{
-    border-color: #FF4B2B;
-    background: #FF4B2B;
+    border-color: var(--color5);
+    background: var(--color5);
 }
 
 .progress-bar .step .bullet span{
@@ -235,7 +243,7 @@ button:hover {
 }
 
 .progress-bar .step .bullet.active:after{
-    background: #FF4B2B;
+    background: var(--color5);
     transform: scaleX(0);
     transform-origin: left;
     animation: animate 0.3s linear forwards;
@@ -253,7 +261,7 @@ button:hover {
 }
     
 .progress-bar .step p.active{
-    color: #FF4B2B;
+    color: var(--color5);
     transition: 0.2s linear;
 }
     

@@ -79,8 +79,8 @@
 .front-left-container button {
     display: block;
 	border-radius: 10px;
-    border: 1px solid #FF4B2B;
-	background-color: #FF4B2B;
+    border: 1px solid var(--color5);
+	background-color: var(--color5);
 	color: #FFFFFF;
 	font-size: 12px;
 	font-weight: bold;
@@ -101,7 +101,7 @@
 
 .front-left-container button:hover {
     background-color: white;
-    color: #FF4B2B;
+    color: var(--color5);
 }
 
 .manage-wallet-panel {

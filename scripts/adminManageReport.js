@@ -36,7 +36,7 @@
                                             "<h4>Reported By <span class='name'>"+reporter+"</span></h4>"+
                                             "<h4 class='report-h4'>Report Reason:</h4>"+
                                             "<p>"+reportDescription+"</p>"+
-                                            "<h4>Comment:</h4>"+
+                                            "<h4 class='comment-h4'>Comment:</h4>"+
                                             "<p>"+commentDescription+"</p>"+
                                         "</div>"+
                                         "<div class='btn-container'>"+
@@ -92,7 +92,7 @@
                                                 "<h4>Reported By <span class='name'>"+reporter+"</span></h4>"+
                                                 "<h4 class='report-h4'>Report Reason:</h4>"+
                                                 "<p>"+reportDescription+"</p>"+
-                                                "<h4>Comment:</h4>"+
+                                                "<h4 class='comment-h4'>Comment:</h4>"+
                                                 "<p>"+commentDescription+"</p>"+
                                             "</div>"+
                                             "<div class='btn-container'>"+

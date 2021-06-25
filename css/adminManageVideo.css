@@ -106,14 +106,14 @@ body {
     text-transform: uppercase;
     cursor: pointer;
     color: white;
-    background-color: #edb33d;
-    border: 2px solid #edb33d;
+    background-color: var(--color3);
+    border: 1px solid var(--color3);
     transition:background-color .15s ease-in;
 }
 
 .submitBtn:hover {
     background-color: white;
-    color: #edb33d;
+    color: var(--color3);
 }
 
 .submitBtn:active {

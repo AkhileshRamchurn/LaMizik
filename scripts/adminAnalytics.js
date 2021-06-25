@@ -37,7 +37,7 @@ $.ajax({
 .done(function(data)
 {
     var options = {
-        colors: ["#29200c"],
+        colors: ["#141414"],
         series: [{
           name: "Views",
           data: Object.values(data)
@@ -89,7 +89,7 @@ $.ajax({
 .done(function(data)
 {
     var options2 = {
-        colors: ["#edb33d"],
+        colors: ["#e77500"],
         series: [{
           name: "Accounts",
           data: Object.values(data)

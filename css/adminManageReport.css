@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400, 800');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:600, 800');
 
 * {
     margin: 0;
@@ -61,6 +61,11 @@ body {
     margin-top: 1.5em;
 }
 
+.comment-h4,
+.report-h4 {
+    font-weight: 600;
+}
+
 .comment-detail p {
     margin-block: 1em 2em;
     font-size: .85em;
@@ -84,14 +89,14 @@ body {
     text-transform: uppercase;
     cursor: pointer;
     color: rgb(245, 245, 245);
-    background-color: #edb33d;
-    border: 2px solid #edb33d;
+    background-color: var(--color3);
+    border: 1px solid var(--color3);
     transition:background-color .15s ease-in;
 }
 
 .submitBtn:hover {
     background-color: rgb(245, 245, 245);
-    color: #edb33d;
+    color: var(--color3);
 }
 
 .submitBtn:active {

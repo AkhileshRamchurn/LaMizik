@@ -76,15 +76,15 @@ body {
     text-transform: uppercase;
     cursor: pointer;
     color: rgb(245, 245, 245);
-    background-color: #edb33d;
-    border: 2px solid #edb33d;
+    background-color: var(--color3);
+    border: 2px solid var(--color3);
     margin-top: 1.5em;
     transition:background-color .15s ease-in;
 }
 
 .submitBtn:hover {
     background-color: rgb(245, 245, 245);
-    color: #edb33d;
+    color: var(--color3);
 }
 
 .submitBtn:active {

@@ -86,11 +86,11 @@ a{
 }
 
 .delete-btn i {
-    color: rgb(245, 245, 245);
+    color: white;
 }
 
 .delete-btn:hover {
-    background-color: rgb(245, 245, 245);
+    background-color: white;
 }
 
 .delete-btn:hover i {
@@ -125,8 +125,8 @@ a{
 
 .button-container button {
 	border-radius: 10px;
-    border: 1px solid #FF4B2B;
-	background-color: #FF4B2B;
+    border: 1px solid var(--color5);
+	background-color: var(--color5);
 	color: #FFFFFF;
 	font-size: 12px;
 	font-weight: bold;
@@ -146,7 +146,7 @@ a{
 
 .button-container button:hover {
     background-color: white;
-    color: #FF4B2B;
+    color: var(--color5);
 }
 
 .donation-modal {
@@ -219,9 +219,9 @@ a{
     font-weight: bold;
     text-transform: uppercase;
     cursor: pointer;
-    color: rgb(245, 245, 245);
-    background-color: #edb33d;
-    border: 2px solid #edb33d;
+    color: white;
+    background-color: var(--color4);
+    border: 1px solid var(--color4);
     margin-top: 1em;
     margin-right: 1em;
     transition:background-color .15s ease-in;
@@ -229,7 +229,7 @@ a{
 
 .donation-modal button:hover {
     background-color: rgb(245, 245, 245);
-    color: #edb33d;
+    color: var(--color4);
 }
 
 .donation-modal button:active {
@@ -298,17 +298,17 @@ a{
     font-weight: bold;
     text-transform: uppercase;
     cursor: pointer;
-    color: rgb(245, 245, 245);
-    background-color: #edb33d;
-    border: 2px solid #edb33d;
+    color: white;
+    background-color: var(--color4);
+    border: 1px solid var(--color4);
     margin-top: 1em;
     margin-right: 1em;
     transition:background-color .15s ease-in;
 }
 
 .link-card-modal button:hover {
-    background-color: rgb(245, 245, 245);
-    color: #edb33d;
+    background-color: white;
+    color: var(--color4);
 }
 
 .link-card-modal button:active {

@@ -13,7 +13,7 @@ body {
 }
 
 .side-bar {
-    background-color: #f49843;
+    background-color: var(--color3);
     height: 90vh;
     width: 21vw;
     position: fixed;
@@ -38,7 +38,8 @@ body {
 }
 
 .item a:hover:not(.active) {
-    background-color: #7d3a10;
+    color: var(--color4);
+    background-color: rgba(255, 255, 255, 0.7);
     transition: 0.3s ease;
 }
 
@@ -47,5 +48,5 @@ body {
 }
 
 .active {
-    background-color: #29200c;
+    background-color: var(--color2);
 }

@@ -107,6 +107,6 @@ a{
 .carousel-container p{
     font-weight:600;
     font-size:15px; 
-    color:rgb(190, 141, 67) ;
+    color:var(--color3);
     padding-bottom: 5px;
 }

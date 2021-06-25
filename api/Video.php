@@ -8,7 +8,12 @@ Class Video{
 		if(isset($_GET['video_id'])){
 			$video_id = $_GET['video_id'];
 			$sql1 = "(SELECT Video_ID, Title, Description, Video_Type, Status, Upload_Timestamp, video.User_ID, user.Username FROM video, user WHERE video.User_ID=user.User_ID AND Status='Approved' AND video.Video_ID = $video_id)";
-		} else {
+		}
+		else if(isset($_GET['user_id'])) {
+			$get_user_id = $_GET['user_id'];
+			$sql1 = "(SELECT Video_ID, Title, Description, Video_Type, Status, Upload_Timestamp, video.User_ID, user.Username FROM video, user WHERE video.User_ID=user.User_ID AND Status='Approved' AND video.User_ID = $get_user_id)";
+		}
+		else {
 			$sql1 = "(SELECT Video_ID, Title, Description, Video_Type, Status, Upload_Timestamp, video.User_ID, user.Username FROM video, user WHERE video.User_ID=user.User_ID AND Status='Approved')";
 		}
 

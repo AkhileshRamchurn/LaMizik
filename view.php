@@ -182,7 +182,7 @@
 								if ($user_type == "Admin" && $row['Status'] == "Approved") {
 									echo 	"<form action='adminRejectVideo2.php' method='POST'>
 												<input type='hidden' name='vid_id' value='".$video_id."'>
-												<button class='admin-reject-video' type='submit'>Reject</button>
+												<button class='admin-reject-video' type='submit'>Delete</button>
 											 </form>";
 								}
 
@@ -238,7 +238,7 @@
 					</div>
 					<div class="video-description">
 						<div class="video-uploader">
-							<h2>By <span class="uploader"><a href="user_profile.php?user_id=<?php echo $row['User_ID']; ?>"><?php echo $uploader[0]; ?></a></span></h2>
+							<h2>By <span class="uploader"><a href="user_videos.php?user_id=<?php echo $row['User_ID']; ?>"><?php echo $uploader[0]; ?></a></span></h2>
 						</div>
 						<div class="full-description">
 							<p><?php echo $row['Description']; ?></p>

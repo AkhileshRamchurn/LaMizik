@@ -10,7 +10,7 @@ $(document).ready(function() {
 
     var path = window.location.href;
     $('.navbar a').each(function(){
-        if (path.startsWith(this.href) && !(path.startsWith("http://localhost/Lamizik/user_profile.php")) && !(path.startsWith("http://localhost/Lamizik/adminAnalytics.php"))) {
+        if (path.startsWith(this.href) && !(path.match(/user_profile.php/)) && !(path.match(/adminAnalytics.php/)) && !(path.match(/user_videos.php/))) {
             $(this).addClass('active');
         }
     });

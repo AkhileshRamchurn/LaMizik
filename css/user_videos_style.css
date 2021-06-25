@@ -1,0 +1,321 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;800&display=swap');
+
+
+*{
+    padding: 0;
+    margin:0;
+    box-sizing: border-box;
+}
+
+.main-container{
+    min-height: 90vh;
+    margin-top:10vh;
+    display: flex;
+    flex-direction: column;
+    padding: 2em 5em;
+    gap:2.5em;
+}
+
+.video-grid{
+    display: flex;
+    flex-direction: column;
+    gap:1em;
+}
+
+.user-videos{
+    position:relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap:2em;
+    justify-content:space-evenly;
+}
+
+/*line separation*/
+.main-container span.separator{
+    position:relative;
+    display: block;
+    width: 100%;
+    height:2px;
+    background-color: black;
+}
+
+.midot3 {
+    margin-inline: 0.5em;
+}
+
+.video-container{
+    display: flex;
+    position:relative;
+    flex-direction: column;
+}
+
+.video-container img{
+    width: 300px;
+}
+
+.video-container p{
+    font-size: 14px;
+}
+
+.video-container h4{
+    font-size: 16px;
+    font-weight: bold;   
+}
+a{
+    color:#191919;
+    text-decoration: none;
+}
+
+.vid-details-small {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete-btn {
+    margin-left: auto;
+    font-size: 0.6em;
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: black;
+    border: 2px solid black;
+    transition:background-color .15s ease-in;
+}
+
+.delete-btn i {
+    color: rgb(245, 245, 245);
+}
+
+.delete-btn:hover {
+    background-color: rgb(245, 245, 245);
+}
+
+.delete-btn:hover i {
+    color: black;
+}
+
+.delete-btn:active {
+	transform: scale(0.95);
+}
+
+.no-video-box {
+    display: grid;
+    place-items: center;
+}
+
+.no-videos-title {
+    color: rgb(180, 180, 180);
+}
+
+.top-container {
+    display: flex;
+    align-items: center;
+    gap: 2em;
+    margin-left: 2em;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
+}
+
+.button-container button {
+	border-radius: 10px;
+    border: 1px solid #FF4B2B;
+	background-color: #FF4B2B;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 20px;
+    text-transform: uppercase;
+    transition:background-color .15s ease-in;
+    cursor: pointer;
+}
+
+.button-container button:active {
+	transform: scale(0.95);
+}
+
+.button-container button:focus {
+	outline: none;
+}
+
+.button-container button:hover {
+    background-color: white;
+    color: #FF4B2B;
+}
+
+.donation-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    border-radius: 0.5em;
+    z-index: 10;
+    background-color: white;
+    opacity: 0;
+    transition: 200ms ease-in;
+    padding: 1em;
+    width: 25%;
+    pointer-events: none;
+}
+
+.donation-modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.donation-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    opacity: 0;
+    transition: 200ms ease-in;
+}
+
+.donation-modal-overlay.active {
+    pointer-events: all;
+    opacity: 1;
+}
+
+.my-modal-title {
+    font-size: 22px;
+}
+
+.donation-modal-subtitle {
+    font-size: 16px;
+    font-weight: normal;
+    margin-block: 1em 0.75em;
+}
+
+.donation-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#donation-amount {
+    background-color: #eee;
+    border-radius: 5px;
+    border: none;
+    padding: 12px 15px;
+    width: 100%;
+}
+
+.donation-modal button {
+    min-width: 8em;
+    font-size: .65em;
+    border-radius: 1em;
+    padding: 0.75em;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: rgb(245, 245, 245);
+    background-color: #edb33d;
+    border: 2px solid #edb33d;
+    margin-top: 1em;
+    margin-right: 1em;
+    transition:background-color .15s ease-in;
+}
+
+.donation-modal button:hover {
+    background-color: rgb(245, 245, 245);
+    color: #edb33d;
+}
+
+.donation-modal button:active {
+	transform: scale(0.95);
+}
+
+.link-card-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    border-radius: 0.5em;
+    z-index: 10;
+    background-color: white;
+    opacity: 0;
+    transition: 200ms ease-in;
+    padding: 1em;
+    width: 25%;
+    pointer-events: none;
+}
+
+.link-card-modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.link-card-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    opacity: 0;
+    transition: 200ms ease-in;
+}
+
+.link-card-modal-overlay.active {
+    pointer-events: all;
+    opacity: 1;
+}
+
+.link-card-modal-title {
+    font-size: 22px;
+}
+
+.link-card-modal-subtitle {
+    font-size: 16px;
+    font-weight: normal;
+    margin-block: 1em 0.75em;
+}
+
+.link-card-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.link-card-modal button {
+    min-width: 8em;
+    font-size: .65em;
+    border-radius: 1em;
+    padding: 0.75em;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: rgb(245, 245, 245);
+    background-color: #edb33d;
+    border: 2px solid #edb33d;
+    margin-top: 1em;
+    margin-right: 1em;
+    transition:background-color .15s ease-in;
+}
+
+.link-card-modal button:hover {
+    background-color: rgb(245, 245, 245);
+    color: #edb33d;
+}
+
+.link-card-modal button:active {
+	transform: scale(0.95);
+}
+
+.close-btn i,
+.close-btn2 i {
+    cursor: pointer;
+}

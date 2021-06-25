@@ -29,7 +29,6 @@
                                             "<h4>User ID:<span class='bold-text'>"+userId+"</span></h4>"+
                                         "</div>"+
                                         "<div class='btn-container'>"+
-                                            "<button name='view' class = 'submitBtn' value="+userId+">View Profile</button>"+
                                             "<button name='restore' class = 'submitBtn' value="+userId+">Restore Account</button>"+
                                         "</div>"+
                                     "</div>";
@@ -78,7 +77,6 @@
                                                 "<h4>User ID:<span class='bold-text'>"+userId+"</span></h4>"+
                                             "</div>"+
                                             "<div class='btn-container'>"+
-                                                "<button name='view' class = 'submitBtn' value="+userId+">View Profile</button>"+
                                                 "<button name='restore' class = 'submitBtn' value="+userId+">Restore Account</button>"+
                                             "</div>"+
                                         "</div>";
@@ -129,10 +127,6 @@
                     }
                 });
             }
-            else if (action=="view"){
-                //view profile!!!
-            }
-
         });
 
     });

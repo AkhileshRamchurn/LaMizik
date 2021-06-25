@@ -19,11 +19,14 @@
 	{
 		$user_id = $user_array[$i]['User_ID'];
 		
+        
 		$innerquery = "SELECT User_ID FROM user WHERE User_ID != $user_id AND User_Type != 'Admin'";
 		
 		$result2 = $conn->query($innerquery);
+        
 		$user_array[$i]['Other_Users'] = $result2->fetchAll(PDO::FETCH_ASSOC);
 
+    
 		for($j=0; $j<count($user_array[$i]['Other_Users']); $j++)
 		{
             //Calculating Similarity-----------------------------------------------------------------------------------------------------
@@ -36,6 +39,7 @@
 
 			$result3 = $conn->query($sql1);
             $matchingViews = $result3->fetchAll(PDO::FETCH_ASSOC);
+    
 
             if (count($matchingViews) == 0) {
                 $similarity = 0;

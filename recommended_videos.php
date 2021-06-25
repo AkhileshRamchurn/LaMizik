@@ -15,6 +15,8 @@
     $result = $conn->query($query);
     $user_array = $result->fetchAll(PDO::FETCH_ASSOC);
 
+    // print_r($user_array);
+
     for($i=0; $i<count($user_array); $i++)
 	{
 		$user_id = $user_array[$i]['User_ID'];
@@ -42,15 +44,62 @@
 
 		$result2 = $conn->query($sql);
         $uncommon_video_array = $result2->fetchAll(PDO::FETCH_ASSOC);
+      
+        // $jsonData = json_encode($uncommon_video_array, JSON_PRETTY_PRINT);
+        // echo $jsonData;
+ 
+         
+        // for($i=0; $i<count($similarity_obj[0]['Other_Users']); $i++)
+	    // {
+        //     $other_user = $similarity_obj[0]['Other_Users'][$i]['User_ID'];
+        //     // for($j=0; $)
 
-        //calculating the predicted score of each video returned
-        for($i=0; $i<count($similarity_obj[0]['Other_Users']); $i++)
-	    {
+        // }
+        $unwatchVideo_ratings = array();
+        //calculating the predicted score of each video returned    
+        for($i=0;$i<count($uncommon_video_array); $i++){
+            $unwatched_videoid=$uncommon_video_array[$i]['Video_ID'];
+            
+            for($j=0;$j<count($similarity_obj[0]['Other_Users']); $j++){
+                $sim_userid =$similarity_obj[0]['Other_Users'][$j]['User_ID'];
+                // echo $sim_userid.' ';
+                $query1 = "SELECT * FROM views WHERE USER_ID=$sim_userid AND Video_ID=$unwatched_videoid";
+                $result3 = $conn ->query($query1);
 
+                $unwatched_videoViewed = $result3->fetchAll(PDO::FETCH_ASSOC);
+
+                $video_score;
+                if(count($unwatched_videoViewed)){//user has not viewed the video
+                    $video_score=1;
+                }
+                else{//user has viewed the video
+                    $query1= "SELECT Rate_Action FROM rating WHERE Video_ID =$unwatched_videoid  AND User_ID = ".$sim_userid;
+                    $result4 = $conn->query($query1);
+                    $videoRating =$result4->fetchAll(PDO::FETCH_ASSOC);
+
+                    
+                    if (count($videoRating) == 0) {
+                        $video_score = 2;
+                    }
+                    else {
+                        if($$videoRating[0]['Rate_Action'] == "Disliked") {
+                            $video_score = 0;
+                        }
+                        else if($$videoRating[0]['Rate_Action'] == "Liked") {
+                            $video_score = 3;
+                        }
+                    }
+
+                }
+                // $unwatchVideo_ratings[$i][$j] = 
+
+
+            }
+                
         }
 
 
-		// $user_array[$i]['Videos'] = $result3->fetchAll(PDO::FETCH_ASSOC);
+		//  $user_array[$i]['Videos'] = $result3->fetchAll(PDO::FETCH_ASSOC);
 
 		
 	}

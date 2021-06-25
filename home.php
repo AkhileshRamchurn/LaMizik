@@ -29,38 +29,48 @@
     <?php include 'includes/navbar.php'; ?>
     <div class="main-container" data-id="<?php echo $user_id ?>"">
         <div class="carousel-container">
-            <h2>Picks of the day</h1>
+            <h2>Picks of the day</h2>
             <div class="owl-carousel owl-theme">
                 <div class="item">
                     <a href="view.php?video_id=27" target="_self" >    
-                       <img src="video/thumbnail/27t.jpg"  >
+                       <img src="video/thumbnail/27t.jpg">
+                       <h4>VANESSA ACOUSTIC<h4>
+                       <p>by chavis_20</p>    
                     </a>	
                 </div>
                 <div class="item">
                     <a href="view.php?video_id=22" target="_self" >
-                        <img src="video/thumbnail/22t.jpg" >
+                        <img src="video/thumbnail/22t.jpg">
+                        <h4>PAYPHONE<h4>
+                       <p>by chavis_20</p> 
                     </a>   		
                 </div>
                 <div class="item">
                     <a href="view.php?video_id=23" target="_self" >
-                        <img src="video/thumbnail/23t.jpg" >
+                        <img src="video/thumbnail/23t.jpg">
+                        <h4>REVE NU ANCETRES<h4>
+                       <p>by chavis_20</p> 
                     </a>   		
                 </div>
                 <div class="item">
                     <a href="view.php?video_id=24" target="_self" >
-                        <img src="video/thumbnail/24t.jpg" >
+                        <img src="video/thumbnail/24t.jpg">
+                        <h4>YESTERDAY COVER<h4>
+                       <p>by chavis_20</p> 
                     </a>   		
                 </div>
                 <div class="item">
                     <a href="view.php?video_id=26" target="_self" >
-                        <img src="video/thumbnail/26t.jpg" >
+                        <img src="video/thumbnail/26t.jpg">
+                        <h4>LA METISSE<h4>
+                       <p>by chavis_20</p> 
                     </a>   		
                 </div>
             </div>
         </div>
-        <div class='recommended-container'><h2>Recommended for you</h1></div>
+        <div class='recommended-container'></div>
         <div class='explore-container'>
-            <h2>Explore</h1>
+            <h2>Explore</h2>
             <div class='explore-videos'></div>
         </div>
         <div class='moreVideosMessage'></div>

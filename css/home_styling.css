@@ -88,3 +88,25 @@ a{
     color:#191919;
     text-decoration: none;
 }
+
+
+.carousel-container h4{
+    font-size: 25px;
+    font-weight:bolder; 
+    display: flex;
+    justify-content: center;
+    display: absolute;
+    transform:translateY(-100px); 
+    background-color: #080808;
+     /* color:rgb(190, 141, 67) ; */
+     color: white;
+     padding-top: 5px;
+
+}     
+
+.carousel-container p{
+    font-weight:600;
+    font-size:15px; 
+    color:rgb(190, 141, 67) ;
+    padding-bottom: 5px;
+}

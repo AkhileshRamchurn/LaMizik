@@ -41,7 +41,7 @@ $(document).ready(function(){
     /*Execute  displayRecommendVideos after video data has been fetched*/
     function displayRecommendVideos(){
         if(user_id) {
-            var display_reVideos="<div class='recommended-videos'>";
+            var display_reVideos="<h2>Recommended for you</h2><div class='recommended-videos'>";
             for(var i=0;i<last_pos_rec; i++){
                 display_reVideos= display_reVideos+"<div class='video-container' >";
                 display_reVideos= display_reVideos+"<a href='view.php?video_id="+videoData[i].Video_ID+"' target='_self'>";  

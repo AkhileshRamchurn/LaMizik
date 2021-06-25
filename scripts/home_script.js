@@ -1,12 +1,12 @@
 $(document).ready(function(){
-    // var url = "http://localhost/Lamizik/video/list";
-    var url ="ajax/getVideoData.php";
+   
     var user_id= $('.main-container').attr('data-id');
-    var videoData;
-    var videoDataLength;
     // console.log(user_id);
 
-    /*Fetch data of videos*/
+    /************** Fetch data of all videos********************/
+    var videoData;
+    var videoDataLength;
+    var url ="ajax/getVideoData.php";
     function fetchVideoData(){
         $.ajax({
             url:url,
@@ -19,34 +19,122 @@ $(document).ready(function(){
             }
         })
         .done(function(data){
-            console.log(data);
+            // console.log(data);
             videoData = data.output;
             videoDataLength=videoData.length;
-            console.log(videoDataLength);
-            console.log(videoData);
+            // console.log(videoDataLength);
+            // console.log(videoData);
          
         });
     }
     fetchVideoData();
-    
-    
-    var last_pos_rec=8;//position in video array
+
     setTimeout(function(){
-        console.log(videoDataLength);
+        // console.log(videoDataLength);
         if (videoDataLength < 8) {
-            last_pos_rec = videoDataLength;
+            last_pos = videoDataLength;
+        }
+    },150);
+
+
+     /********* Load explore videos on scroll**************/
+     var limit=8;//number of videos to display
+     var start=0;//index of first video to be displayed
+     var last_pos=8;//position in video array
+     var stopScrolling=false;
+     
+    
+     function loadExploreVideoOnScroll(start,last_pos){ 
+         var display_exVideos="";
+         for(var i=start;i<last_pos; i++){
+             display_exVideos= display_exVideos+"<div class='video-container' >";
+             display_exVideos= display_exVideos+"<a href='view.php?video_id="+videoData[i].Video_ID+"' target='_self'>";  
+             display_exVideos=display_exVideos+"<img src='video/thumbnail/"+videoData[i].Video_ID+"t.jpg'>";
+             display_exVideos=display_exVideos +"<div class='video-details'><h4>"+videoData[i].Title+"</h4></a><p>"+videoData[i].Username+"</p>"+"<p>"+moment.unix(videoData[i].Upload_Timestamp).fromNow()+"<span class='midot3'>&#183;</span>"+videoData[i].Views+" views</p>"+"</div>";  
+             display_exVideos=display_exVideos +"</div>"; 
+             $('.explore-videos').append(display_exVideos);
+             display_exVideos="";
+         }
+ 
+         
+     }
+     // Display intial explore videos
+     setTimeout(function(){
+         loadExploreVideoOnScroll(start,last_pos); 
+     },200);
+ 
+     // Display explore videos on scroll
+     $(window).scroll(function(e){//when we are scrolling
+         // console.log('working');
+         setTimeout(function(){
+             if($(window).scrollTop() >= $('.explore-container').offset().top + $('.explore-container').outerHeight() - window.innerHeight){
+                  start +=limit;
+                 
+                 //checks if there are enough videos that can be displayed
+                 if(last_pos+limit > videoDataLength && stopScrolling==false){
+                     // console.log('working');
+                     stopScrolling=true;
+                     $(window).unbind('scroll'); //stops screen from scrolling 
+                     last_pos = videoDataLength;
+                     loadExploreVideoOnScroll(start,last_pos);  
+                     $('.moreVideosMessage').html('Pena enkor video pln. to scroll em xD'); 
+                 }
+                 else{
+                     last_pos +=limit;
+                     loadExploreVideoOnScroll(start,last_pos);   
+                 }
+                         
+             }
+         },1750);    
+     })
+ 
+
+   /************************* RECOMMENDED VIDEOS ************************/ 
+    
+
+        
+    var recommendedVideos;
+    var NumRecommendedVideos; 
+    var url2='recommended_videos.php?user_id='+user_id;
+     /*Fetch recommended videos */
+     function fetchRecommededVideos(){
+         $.ajax({
+             url:url2,
+             accepts:"application/json",
+             cache:false,
+             type:"GET",
+             error:function(xhr){
+                 alert("An error occured: " + xhr.status + " " + xhr.statusText);
+             }
+         })
+ 
+         .done(function(data){
+            // console.log(data[0].Recommended_Videos);
+            recommendedVideos =data[0].Recommended_Videos;
+            NumRecommendedVideos = recommendedVideos.length;
+            // console.log(recommendedVideos);
+            // console.log(recommendedVideosNum);
+         
+         });
+     }
+     fetchRecommededVideos();
+
+     var last_pos_rec=8;//position in video recommended array
+     setTimeout(function(){   
+        if (NumRecommendedVideos< 8) {
+            last_pos_rec =NumRecommendedVideos;
         }
     },100);//wait 100ms for data to be fetched
 
-    /*Execute  displayRecommendVideos after video data has been fetched*/
+     /*Display Recommend Videos after videos data have been fetched*/
     function displayRecommendVideos(){
         if(user_id) {
             var display_reVideos="<h2>Recommended for you</h2><div class='recommended-videos'>";
             for(var i=0;i<last_pos_rec; i++){
                 display_reVideos= display_reVideos+"<div class='video-container' >";
-                display_reVideos= display_reVideos+"<a href='view.php?video_id="+videoData[i].Video_ID+"' target='_self'>";  
-                display_reVideos=display_reVideos+"<img src='video/thumbnail/"+videoData[i].Video_ID+"t.jpg'>";
-                display_reVideos=display_reVideos +"<div class='video-details'><h4>"+videoData[i].Title+"</h4></a><p>"+videoData[i].Username+"</p>"+"<p>"+moment.unix(videoData[i].Upload_Timestamp).fromNow()+"<span class='midot3'>&#183;</span>"+videoData[i].Views+" views</p>"+"</div>";  
+                display_reVideos= display_reVideos+"<a href='view.php?video_id="+recommendedVideos[i].Video_ID+"' target='_self'>";  
+                display_reVideos=display_reVideos+"<img src='video/thumbnail/"+recommendedVideos[i].Video_ID+"t.jpg'>";
+                display_reVideos=display_reVideos +"<div class='video-details'><h4>"+recommendedVideos[i].Title+"</h4></a><p>"+recommendedVideos[i].Username+"</p>"+"<p>"+moment.unix(recommendedVideos[i].Upload_Timestamp).fromNow()+"<span class='midot3'>&#183;</span>"+recommendedVideos[i].views+" views</p>"+"</div>";  
                 display_reVideos=display_reVideos +"</div>"; 
             }
             display_reVideos = display_reVideos+"</div><span class='separator'></span>";
@@ -63,65 +151,11 @@ $(document).ready(function(){
     setTimeout(function(){
         displayRecommendVideos();
     },200);
+
+    /************************* END OF RECOMMENDED VIDEOS ************************/ 
     
-    /*load explore videos on scroll*/
-    var limit=8;//number of videos to display
-    var start=0;//index of first video to be displayed
-    var last_pos=8;//position in video array
-    var stopScrolling=false;
-    
-    setTimeout(function(){
-        console.log(videoDataLength);
-        if (videoDataLength < 8) {
-            last_pos = videoDataLength;
-        }
-    },150);
-
-    function loadExploreVideoOnScroll(start,last_pos){ 
-        var display_exVideos="";
-        for(var i=start;i<last_pos; i++){
-            display_exVideos= display_exVideos+"<div class='video-container' >";
-            display_exVideos= display_exVideos+"<a href='view.php?video_id="+videoData[i].Video_ID+"' target='_self'>";  
-            display_exVideos=display_exVideos+"<img src='video/thumbnail/"+videoData[i].Video_ID+"t.jpg'>";
-            display_exVideos=display_exVideos +"<div class='video-details'><h4>"+videoData[i].Title+"</h4></a><p>"+videoData[i].Username+"</p>"+"<p>"+moment.unix(videoData[i].Upload_Timestamp).fromNow()+"<span class='midot3'>&#183;</span>"+videoData[i].Views+" views</p>"+"</div>";  
-            display_exVideos=display_exVideos +"</div>"; 
-            $('.explore-videos').append(display_exVideos);
-            display_exVideos="";
-        }
-
-        
-    }
-    // Display intial explore videos
-    setTimeout(function(){
-        loadExploreVideoOnScroll(start,last_pos); 
-    },200);
-
-    // Display explore videos on scroll
-    $(window).scroll(function(e){//when we are scrolling
-        // console.log('working');
-        setTimeout(function(){
-            if($(window).scrollTop() >= $('.explore-container').offset().top + $('.explore-container').outerHeight() - window.innerHeight){
-                 start +=limit;
-                
-                //checks if there are enough videos that can be displayed
-                if(last_pos+limit > videoDataLength && stopScrolling==false){
-                    // console.log('working');
-                    stopScrolling=true;
-                    $(window).unbind('scroll'); //stops screen from scrolling 
-                    last_pos = videoDataLength;
-                    loadExploreVideoOnScroll(start,last_pos);  
-                    $('.moreVideosMessage').html('Pena enkor video pln. to scroll em xD'); 
-                }
-                else{
-                    last_pos +=limit;
-                    loadExploreVideoOnScroll(start,last_pos);   
-                }
-                        
-            }
-        },1750);    
-    })
-
-    /*script for owl carousel*/
+   
+    /*******************script for owl carousel*************************/
     $(".owl-carousel ").owlCarousel({
         loop:true,
         margin:30,

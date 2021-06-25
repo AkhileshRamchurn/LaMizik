@@ -48,16 +48,6 @@
 		$result2 = $conn->query($sqlfinal);
         $uncommon_video_array = $result2->fetchAll(PDO::FETCH_ASSOC);
       
-        // $jsonData = json_encode($uncommon_video_array, JSON_PRETTY_PRINT);
-        // echo $jsonData;
- 
-         
-        // for($i=0; $i<count($similarity_obj[0]['Other_Users']); $i++)
-	    // {
-        //     $other_user = $similarity_obj[0]['Other_Users'][$i]['User_ID'];
-        //     // for($j=0; $)
-
-        // }
        
         //calculating the predicted score of each video returned
     
@@ -101,7 +91,7 @@
                     }
 
                 }
-                // $unwatchVideo_ratings[$i][$j] = 
+               
                 $total_video_weightmean += $similarity_obj[0]['Other_Users'][$j]['Similarity'] * $video_score;
                 $total_similairty+=$similarity_obj[0]['Other_Users'][$j]['Similarity'];
             }
@@ -121,12 +111,12 @@
 
 
   
-        usort($uncommon_video_array, function ($item1, $item2) {
-            return $item2['video_weightmean'] <=> $item1['video_weightmean'];
-        });
+    usort($uncommon_video_array, function ($item1, $item2) {
+        return $item2['video_weightmean'] <=> $item1['video_weightmean'];
+    });
 
-        // Getting the top n videos only
-         $uncommon_video_array = array_slice($uncommon_video_array, 0, $video_limit);
+    // Getting the top n videos only
+     $uncommon_video_array = array_slice($uncommon_video_array, 0, $video_limit);
 
 
     $jsonData = json_encode($uncommon_video_array, JSON_NUMERIC_CHECK);

@@ -145,7 +145,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="scripts/view_script.js"></script>
-	<script src="scripts/view_scriptToDelete.js"></script>
+	<script src="scripts/view_script2.js"></script>
 </head>
 <?php include 'includes/navbar.php'; ?>
 <body>

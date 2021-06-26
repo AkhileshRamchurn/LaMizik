@@ -42,7 +42,7 @@
 
         $sql3 = "($sql1 AND Video_ID NOT IN $sql2 GROUP BY Video_ID)";
         
-        $sqlfinal ="SELECT  video.Video_ID, Title, Description, Video_Type, Status, UNIX_TIMESTAMP(Upload_Timestamp) AS Upload_Timestamp, user.Username FROM $sql3 a, video, user WHERE video.Video_ID = a.Video_ID AND video.User_ID = user.User_ID";
+        $sqlfinal ="SELECT  video.Video_ID, Title, Description, Video_Type, Status, UNIX_TIMESTAMP(Upload_Timestamp) AS Upload_Timestamp, user.Username FROM $sql3 a, video, user WHERE video.Video_ID = a.Video_ID AND video.User_ID = user.User_ID AND Status='Approved'";
 
 
 		$result2 = $conn->query($sqlfinal);

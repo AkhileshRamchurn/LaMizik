@@ -8,11 +8,11 @@
             return $data;
         }
 
-        $videoId = test_input($_POST['videoId']);
+        $condition = test_input($_POST['condition']);
         $start = test_input($_POST['start']);
         $limit = test_input($_POST['limit']);
         
-        if (empty($videoId) || (empty($start) && $start != 0) || empty($limit)) {
+        if ((empty($start) && $start != 0) || (empty($limit) && $limit != 0)) {
             header('HTTP/1.0 403 Forbidden');
         }
         else {
@@ -20,7 +20,7 @@
 
             $sql1 ="SELECT video.Video_ID, Title, Description, UNIX_TIMESTAMP(Upload_Timestamp) AS Upload_Timestamp, video.User_ID AS Uploader_ID, Username AS Uploader
                     FROM video, user
-                    WHERE video.Video_ID != ? AND user.User_ID = video.User_ID AND Status='Approved'
+                    WHERE video.Video_ID NOT IN ($condition) AND user.User_ID = video.User_ID AND Status='Approved'
                     LIMIT ?, ?";
 
             $sql2 ="SELECT Video_ID, COUNT(*) AS Views
@@ -32,9 +32,8 @@
                     ON a.Video_ID=b.Video_ID";
 
             $result = $conn->prepare($sql);
-            $result->bindParam(1, $videoId,PDO::PARAM_INT);
-            $result->bindParam(2, $start,PDO::PARAM_INT);
-            $result->bindParam(3, $limit,PDO::PARAM_INT);
+            $result->bindParam(1, $start,PDO::PARAM_INT);
+            $result->bindParam(2, $limit,PDO::PARAM_INT);
             $result->execute();
 
             $video_array = $result->fetchAll(PDO::FETCH_ASSOC);

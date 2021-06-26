@@ -28,6 +28,7 @@ $(document).ready(function() {
                 if (data == 'success') {
                     alert("Video successfully uploaded");
                     $("#myform").trigger("reset");
+                    $(".upload-box-text").text("Drag and Drop or Click to select video file");
                 }
                 else {
                     alert("Unexpected error! Video could not be uploaded.");

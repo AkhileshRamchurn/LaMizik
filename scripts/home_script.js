@@ -92,11 +92,20 @@ $(document).ready(function(){
 
     /*************************  Carousel VIDEOS **************************/
     function displayCarouselVideos(){
+        //copying videoData to a new array
+        var videoDataCopy = videoData.slice();
+        
+        //shuffling the new array
+        shuffle(videoDataCopy);
+
+        //trimming the array to contain the first 5 elements only
+        videoDataCopy.splice(5);
+
         var randomVideoData;
         var display_carouselVideos="<h2>Picks of the day</h2><div class='owl-carousel owl-theme'>";
         for(var i=0;i<5; i++){
             //select a random video item from the whole video data set
-            randomVideoData = videoData[Math.floor(Math.random()*videoData.length)]; 
+            randomVideoData = videoDataCopy[i]; 
             // console.log(randomVideoData);
             display_carouselVideos= display_carouselVideos+"<div class='item' >";
             display_carouselVideos= display_carouselVideos+"<a href='view.php?video_id="+randomVideoData.Video_ID+"' target='_self'>";  
@@ -133,6 +142,25 @@ $(document).ready(function(){
             }
         });
     },250);
+
+    //function to shuffle an array
+    function shuffle(array) {
+        var currentIndex = array.length,  randomIndex;
+      
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+      
+          // Pick a remaining element...
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex--;
+      
+          // And swap it with the current element.
+          [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+        }
+      
+        return array;
+    }
 
     
     

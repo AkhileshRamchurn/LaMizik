@@ -37,7 +37,7 @@ $(document).ready(function(){
     },150);
 
 
-     /********* Load explore videos on scroll**************/
+     /************************ Load explore videos on scroll**************/
      var limit=8;//number of videos to display
      var start=0;//index of first video to be displayed
      var last_pos=8;//position in video array
@@ -61,7 +61,7 @@ $(document).ready(function(){
      // Display intial explore videos
      setTimeout(function(){
          loadExploreVideoOnScroll(start,last_pos); 
-     },200);
+     },250);
  
      // Display explore videos on scroll
      $(window).scroll(function(e){//when we are scrolling
@@ -87,12 +87,60 @@ $(document).ready(function(){
              }
          },1750);    
      })
- 
 
-   /************************* RECOMMENDED VIDEOS ************************/ 
+    /************************ END Load explore videos on scroll***********/
+
+    /*************************  Carousel VIDEOS **************************/
+    function displayCarouselVideos(){
+        var randomVideoData;
+        var display_carouselVideos="<h2>Picks of the day</h2><div class='owl-carousel owl-theme'>";
+        for(var i=0;i<5; i++){
+            //select a random video item from the whole video data set
+            randomVideoData = videoData[Math.floor(Math.random()*videoData.length)]; 
+            // console.log(randomVideoData);
+            display_carouselVideos= display_carouselVideos+"<div class='item' >";
+            display_carouselVideos= display_carouselVideos+"<a href='view.php?video_id="+randomVideoData.Video_ID+"' target='_self'>";  
+            display_carouselVideos=display_carouselVideos+"<img src='video/thumbnail/"+randomVideoData.Video_ID+"t.jpg'>";
+            display_carouselVideos=display_carouselVideos +"<h4>"+randomVideoData.Title+"<h4><p>"+randomVideoData.Username+"</p></a>";
+            display_carouselVideos=display_carouselVideos +"</div>"; 
+        }
+        display_carouselVideos = display_carouselVideos+"</div>";
+    
+        $('.carousel-container').append(display_carouselVideos);
+        
+    }   
+    
+    setTimeout(function(){
+        displayCarouselVideos();
+            /*script for owl carousel*/
+        $(".owl-carousel ").owlCarousel({
+            loop:true,
+            margin:30,
+            nav:false,
+            autoplay: true,
+            autoplayTimeout: 2500,
+            stagePadding:350,
+            responsive:{
+                0:{
+                    items:1
+                },
+                600:{
+                    items:1
+                },
+                1000:{
+                    items:1
+                }
+            }
+        });
+    },250);
+
+    
     
 
-        
+    /************************* END Carousel VIDEOS ************************/
+ 
+
+   /************************* RECOMMENDED VIDEOS ************************/
     var recommendedVideos;
     var NumRecommendedVideos; 
     var url2='recommended_videos.php?user_id='+user_id;
@@ -124,7 +172,7 @@ $(document).ready(function(){
         if (NumRecommendedVideos< 8) {
             last_pos_rec =NumRecommendedVideos;
         }
-    },100);//wait 100ms for data to be fetched
+    },150);//wait 100ms for data to be fetched
 
      /*Display Recommend Videos after videos data have been fetched*/
     function displayRecommendVideos(){
@@ -150,31 +198,11 @@ $(document).ready(function(){
     /*Displays videos when home page is first loaded*/
     setTimeout(function(){
         displayRecommendVideos();
-    },200);
+    },250);
 
     /************************* END OF RECOMMENDED VIDEOS ************************/ 
     
    
-    /*******************script for owl carousel*************************/
-    $(".owl-carousel ").owlCarousel({
-        loop:true,
-        margin:30,
-        nav:false,
-        autoplay: true,
-        autoplayTimeout: 2500,
-        stagePadding:350,
-        responsive:{
-            0:{
-                items:1
-            },
-            600:{
-                items:1
-            },
-            1000:{
-                items:1
-            }
-        }
-    });
 
 
 });    

@@ -104,7 +104,7 @@ $(document).ready(function(){
         var randomVideoData;
         var display_carouselVideos="<h2>Picks of the day</h2><div class='owl-carousel owl-theme'>";
         for(var i=0;i<5; i++){
-            //select a random video item from the whole video data set
+           
             randomVideoData = videoDataCopy[i]; 
             // console.log(randomVideoData);
             display_carouselVideos= display_carouselVideos+"<div class='item' >";

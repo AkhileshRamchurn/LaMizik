@@ -27,9 +27,42 @@
 </head>
 <body>
     <?php include 'includes/navbar.php'; ?>
-    <div class="main-container" data-id="<?php echo $user_id ?>"">
+    <div class="main-container" data-id="<?php echo $user_id ?>">
         <div class="carousel-container"></div>
-        <div class='recommended-container'></div>
+        <div class='recommended-container'>
+        <?php
+
+            if (isset($_SESSION['User_ID'])) {
+                if ($_SESSION['User_Type'] == 'NormalUser') {
+
+                    $url="http://localhost/Lamizik/recommended_videos.php?user_id=".$_SESSION['User_ID'];
+                    $video_json= file_get_contents($url);
+                    $json_data = json_decode($video_json, true);
+                    $recommendedVideos = $json_data[0]["Recommended_Videos"]; 
+                    $NumRecommendedVideos = count($recommendedVideos);
+                    
+                    $last_pos_rec=8;
+                    if ($NumRecommendedVideos< 8) {
+                        $last_pos_rec = $NumRecommendedVideos;
+                    }
+
+                    $display_reVideos="<h2>Recommended for you</h2><div class='recommended-videos'>";
+                    for($i=0;$i<$last_pos_rec; $i++){
+                        $display_reVideos= $display_reVideos."<div class='video-container' >";
+                        $display_reVideos= $display_reVideos."<a href='view.php?video_id=".$recommendedVideos[$i]['Video_ID']."' target='_self'>";  
+                        $display_reVideos= $display_reVideos."<img src='video/thumbnail/".$recommendedVideos[$i]['Video_ID']."t.jpg'>";
+                        $display_reVideos= $display_reVideos."<div class='video-details'><h4>".$recommendedVideos[$i]['Title']."</h4></a><p>".$recommendedVideos[$i]['Username']."</p><p><span class='timestamp'>".$recommendedVideos[$i]['Upload_Timestamp']."</span><span class='midot3'>&#183;</span>".$recommendedVideos[$i]['views']." views</p></div>";  
+                        $display_reVideos= $display_reVideos."</div>"; 
+                    }
+                    $display_reVideos = $display_reVideos."</div><span class='separator'></span>";
+
+                    echo $display_reVideos;
+
+                }
+            }
+
+        ?>
+        </div>
         <div class='explore-container'>
             <h2>Explore</h2>
             <div class='explore-videos'></div>

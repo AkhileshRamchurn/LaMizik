@@ -1,4 +1,9 @@
 <?php
+use Opis\JsonSchema\{
+	Validator, ValidationResult, ValidationError, Schema
+};
+require '../vendor/autoload.php';
+
 require_once("SimpleRest.php");
 require_once("Video.php");
 
@@ -8,12 +13,32 @@ class VideoRestHandler extends SimpleRest {
 		$video = new Video();
 		$rawData = $video->getAllVideo();
 
-		if(empty($rawData)) {
-			$statusCode = 404;
-			$rawData = array('success' => 0);		
-		} else {
+		$data["output"] = $rawData;
+		$data1 = json_encode($data);
+
+		$data2 = json_decode($data1);
+		
+		$schema = Schema::fromJsonString(file_get_contents('videoAPI_jsonSchema.json'));
+		$validator = new Validator();
+
+		/** @var ValidationResult $result */
+		$validationResult = $validator->schemaValidation($data2, $schema); 
+
+		if ($validationResult->isValid()) {
 			$statusCode = 200;
+
+		} else {
+			$statusCode = 404;
+			$rawData = array('success' => 0);
 		}
+
+
+		// if(empty($rawData)) {
+		// 	$statusCode = 404;
+		// 	$rawData = array('success' => 0);		
+		// } else {
+		// 	$statusCode = 200;
+		// }
 
 		//var_dump($rawData);
 		

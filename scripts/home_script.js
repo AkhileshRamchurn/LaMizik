@@ -77,7 +77,7 @@ $(document).ready(function(){
                      $(window).unbind('scroll'); //stops screen from scrolling 
                      last_pos = videoDataLength;
                      loadExploreVideoOnScroll(start,last_pos);  
-                     $('.moreVideosMessage').html('Pena enkor video pln. to scroll em xD'); 
+                    //  $('.moreVideosMessage').html('Pena enkor video pln. to scroll em xD'); 
                  }
                  else{
                      last_pos +=limit;
@@ -169,64 +169,74 @@ $(document).ready(function(){
  
 
    /************************* RECOMMENDED VIDEOS ************************/
-    var recommendedVideos;
-    var NumRecommendedVideos; 
-    var url2='recommended_videos.php?user_id='+user_id;
-     /*Fetch recommended videos */
-     function fetchRecommededVideos(){
-         $.ajax({
-             url:url2,
-             accepts:"application/json",
-             cache:false,
-             type:"GET",
-             error:function(xhr){
-                 alert("An error occured: " + xhr.status + " " + xhr.statusText);
-             }
-         })
+   
+    //Moved to PHP (home.php) Consumed at PhP level
+
+    // var recommendedVideos;
+    // var NumRecommendedVideos; 
+    // var url2='recommended_videos.php?user_id='+user_id;
+    //  /*Fetch recommended videos */
+    //  function fetchRecommededVideos(){
+    //      $.ajax({
+    //          url:url2,
+    //          accepts:"application/json",
+    //          cache:false,
+    //          type:"GET",
+    //          error:function(xhr){
+    //              alert("An error occured: " + xhr.status + " " + xhr.statusText);
+    //          }
+    //      })
  
-         .done(function(data){
-            // console.log(data[0].Recommended_Videos);
-            recommendedVideos =data[0].Recommended_Videos;
-            NumRecommendedVideos = recommendedVideos.length;
-            // console.log(recommendedVideos);
-            // console.log(recommendedVideosNum);
+    //      .done(function(data){
+    //         // console.log(data[0].Recommended_Videos);
+    //         recommendedVideos =data[0].Recommended_Videos;
+    //         NumRecommendedVideos = recommendedVideos.length;
+    //         // console.log(recommendedVideos);
+    //         // console.log(recommendedVideosNum);
          
-         });
-     }
-     fetchRecommededVideos();
+    //      });
+    //  }
+    //  fetchRecommededVideos();
 
-     var last_pos_rec=8;//position in video recommended array
-     setTimeout(function(){   
-        if (NumRecommendedVideos< 8) {
-            last_pos_rec =NumRecommendedVideos;
-        }
-    },150);//wait 100ms for data to be fetched
+    //  var last_pos_rec=8;//position in video recommended array
+    //  setTimeout(function(){   
+    //     if (NumRecommendedVideos< 8) {
+    //         last_pos_rec =NumRecommendedVideos;
+    //     }
+    // },150);//wait 100ms for data to be fetched
 
-     /*Display Recommend Videos after videos data have been fetched*/
-    function displayRecommendVideos(){
-        if(user_id) {
-            var display_reVideos="<h2>Recommended for you</h2><div class='recommended-videos'>";
-            for(var i=0;i<last_pos_rec; i++){
-                display_reVideos= display_reVideos+"<div class='video-container' >";
-                display_reVideos= display_reVideos+"<a href='view.php?video_id="+recommendedVideos[i].Video_ID+"' target='_self'>";  
-                display_reVideos=display_reVideos+"<img src='video/thumbnail/"+recommendedVideos[i].Video_ID+"t.jpg'>";
-                display_reVideos=display_reVideos +"<div class='video-details'><h4>"+recommendedVideos[i].Title+"</h4></a><p>"+recommendedVideos[i].Username+"</p>"+"<p>"+moment.unix(recommendedVideos[i].Upload_Timestamp).fromNow()+"<span class='midot3'>&#183;</span>"+recommendedVideos[i].views+" views</p>"+"</div>";  
-                display_reVideos=display_reVideos +"</div>"; 
-            }
-            display_reVideos = display_reVideos+"</div><span class='separator'></span>";
-            //  console.log(display_reVideos);
-            $('.recommended-container').append(display_reVideos);
-        }
-        else{
-            $('.recommended-container').empty();
-        }
+    //  /*Display Recommend Videos after videos data have been fetched*/
+    // function displayRecommendVideos(){
+    //     if(user_id) {
+    //         var display_reVideos="<h2>Recommended for you</h2><div class='recommended-videos'>";
+    //         for(var i=0;i<last_pos_rec; i++){
+    //             display_reVideos= display_reVideos+"<div class='video-container' >";
+    //             display_reVideos= display_reVideos+"<a href='view.php?video_id="+recommendedVideos[i].Video_ID+"' target='_self'>";  
+    //             display_reVideos=display_reVideos+"<img src='video/thumbnail/"+recommendedVideos[i].Video_ID+"t.jpg'>";
+    //             display_reVideos=display_reVideos +"<div class='video-details'><h4>"+recommendedVideos[i].Title+"</h4></a><p>"+recommendedVideos[i].Username+"</p>"+"<p>"+moment.unix(recommendedVideos[i].Upload_Timestamp).fromNow()+"<span class='midot3'>&#183;</span>"+recommendedVideos[i].views+" views</p>"+"</div>";  
+    //             display_reVideos=display_reVideos +"</div>"; 
+    //         }
+    //         display_reVideos = display_reVideos+"</div><span class='separator'></span>";
+    //         //  console.log(display_reVideos);
+    //         $('.recommended-container').append(display_reVideos);
+    //     }
+    //     else{
+    //         $('.recommended-container').empty();
+    //     }
 
-    }
+    // }
     
-    /*Displays videos when home page is first loaded*/
-    setTimeout(function(){
-        displayRecommendVideos();
-    },250);
+    // /*Displays videos when home page is first loaded*/
+    // setTimeout(function(){
+    //     displayRecommendVideos();
+    // },250);
+
+    $('.timestamp').each(function() {
+        var ts = $(this).text();
+        console.log(ts);
+        var newTs = moment.unix(ts).fromNow();
+        $(this).text(newTs);
+    });
 
     /************************* END OF RECOMMENDED VIDEOS ************************/ 
     

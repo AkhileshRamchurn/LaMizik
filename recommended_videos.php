@@ -5,7 +5,7 @@
 
     $video_limit=8;
 
-    if (!empty($_GET['user_id'])) {
+    if (isset($_GET['user_id'])) {
         $query = "SELECT User_ID FROM user WHERE User_Type = 'NormalUser' AND User_ID = ".$_GET['user_id'];
     }
     else {
